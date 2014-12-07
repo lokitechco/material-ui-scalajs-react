@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>material-ui</title>
+    <link href="material-ui.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="react-with-addons.js"></script>
+    <script>
+      function require(path) {
+        if (path == 'react' || path == 'react/addons') {
+          return React;
+        }
+      };
+    </script>
+    <script type="text/javascript" src="material-ui.js"></script>
+    <script type="text/javascript" src="../material-ui-sampler-fastopt.js"></script>
+  </head>
+  <body>
+    <div id="scala">APP</div>
+    <script>
+      wav.web.materialui.sampler.App().main(document.getElementById('scala'));
+    </script>
+  </body>
+</html>
