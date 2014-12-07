@@ -13,7 +13,7 @@ object App extends js.JSApp {
     dom.onhashchange = (_: dom.Event) => {
       samples.get(hash.toLowerCase).foreach(mount => mount(e("content")))
     }
-    if (hash == "") g.window.location.hash = samples.keys.take(1).toSeq(0)
+    samples.get(hash.toLowerCase).foreach(mount => mount(e("content")))
   }
   def main(): Unit =
     main(e("scala"))
@@ -22,11 +22,9 @@ object App extends js.JSApp {
 
   private def e[T <: dom.HTMLElement](id: String): T =
     g.document.getElementById(id).asInstanceOf[T]
-
-  private def iconSample(target: dom.HTMLDivElement): Unit =
-    japgolly.scalajs.react.React.render(
-      wav.web.materialui.Icon("action-done").apply, target)
     
   private val samples = Map[String, dom.HTMLDivElement => Unit](
-    "icon" -> iconSample _)
+    "icon" -> Samples.icon _,
+    "dialog" -> Samples.dialog _
+    )
 }
