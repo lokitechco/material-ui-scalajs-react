@@ -1,12 +1,14 @@
 package wav.web
 
 import scala.scalajs.js
-import js.Dynamic.{global => g}
+import scala.scalajs.js.Dynamic.{global => g}
 
 package object materialui {
-  
+
   private[materialui] val log = (o: js.Any) => js.Dynamic.global.console.log(o)
-  
-  val mui = g.mui
+
+  private[materialui] val reactJS = g.React
+
+  private[materialui] val mui = g.mui
 
 }

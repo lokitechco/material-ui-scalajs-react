@@ -6,6 +6,7 @@ import wav.web.materialui._
 import japgolly.scalajs.react._
 import vdom.ReactVDom._
 import all._
+import org.scalajs.dom.HTMLDivElement
 
 object Samples {
 
@@ -14,11 +15,9 @@ object Samples {
       Icon("action-done")(), target)
 
   class DialogBackend(T: BackendScope[Unit, Unit]) {
-    private val dialog = Mounted[DialogM](Dialog.makeRef("test")) _
-    def dismiss(): Unit =
-      dialog(T).dismiss
-    def show(): Unit =
-      dialog(T).show
+    private val dialogRef = Dialog.Ref("test")
+    def dismiss = dialogRef(T).dismiss
+    def show = dialogRef(T).show
   }
 
   type MouseEv = SyntheticMouseEvent[dom.HTMLDivElement]
@@ -27,7 +26,7 @@ object Samples {
     .stateless
     .backend(new DialogBackend(_))
     .render((_, _, B) => {
-      div(PaperButton(label = "Open Dialog", onClick = (e: MouseEv) => B.show).apply,
+      div(PaperButton(label = "Open Dialog", onClick = (e: MouseEv) => B.show)(),
         Dialog(
           ref = "test",
           title = "test",

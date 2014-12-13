@@ -3,9 +3,14 @@ Common.commonSettings
 name := "material-ui"
 
 lazy val root = (project in file("."))
+	.dependsOn(macros)
+
+lazy val macros = (project in file("macros"))
 
 lazy val sampler = (project in file("sampler"))
 	.dependsOn(root)
+
+libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value % "compile" // macros for root and macros.
 
 resourceGenerators in Compile <+= Def.task {
 	val dir = (resourceManaged in Compile).value
