@@ -4,7 +4,7 @@ It's a ScalaJS wrapper of [material-ui.com](material-ui.com) for use with [scala
 
 Wrappers in this project are simply case classes that represent props in react object. A macro creates the actual `js.Object` and a method that accepts "child props"/elements.
 
-[Demo Site](http://wav.github.io/material-ui/site/classes/index.html)
+[Demo Site](http://wav.github.io/material-ui-scalajs-react/site/classes/index.html)
 
 ## Status
 
