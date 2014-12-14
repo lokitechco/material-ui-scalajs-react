@@ -10,37 +10,31 @@ import org.scalajs.dom.HTMLDivElement
 
 object Samples {
 
-  def icon(target: dom.HTMLDivElement): Unit =
-    React.render(
-      Icon("action-done")(), target)
+  val IconSample = IconU("action-done").noChildren
 
-  class DialogBackend(T: BackendScope[Unit, Unit]) {
-    private val dialogRef = Dialog.Ref("test")
+  class DialogSampleBackend(T: BackendScope[Unit, Unit]) {
+    private val dialogRef = Dialog.Ref("dialogSample--dialog")
     def dismiss = dialogRef(T).dismiss
     def show = dialogRef(T).show
   }
 
-  type MouseEv = SyntheticMouseEvent[dom.HTMLDivElement]
-
-  val MyDialog = ReactComponentB[Unit]("MyDialog")
+  val DialogSample = ReactComponentB[Unit]("DialogSample")
     .stateless
-    .backend(new DialogBackend(_))
+    .backend(new DialogSampleBackend(_))
     .render((_, _, B) => {
-      div(PaperButton(label = "Open Dialog", onClick = (e: MouseEv) => B.show)(),
-        Dialog(
-          ref = "test",
+      div(RaisedButtonU(label = "Open Dialog", onTouchTap = (e: SyntheticTouchEvent[dom.HTMLDivElement]) => B.show).noChildren,
+        DialogU(
+          ref = "dialogSample--dialog",
           title = "test",
           onDismiss = () => log("Closed"),
           onShow = () => log("Opened"),
           actions = js.Array(
             Dialog.Action("Cancel", B.dismiss _),
-            Dialog.Action("OK", B.dismiss _)))(
-            p(Icon("action-done")(), "Works!")))
+            Dialog.Action("OK", B.dismiss _)))
+          .withChildren(
+            p(IconU("action-done").noChildren, "Works!")))
     })
     .buildU
-
-  def dialog(target: dom.HTMLDivElement): Unit =
-    React.render(
-      MyDialog(), target)
+    .apply()
 
 }

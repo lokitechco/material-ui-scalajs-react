@@ -1,8 +1,10 @@
 Common.commonSettings
 
-Common.muiJsDependencies
-
 name := "material-ui-sampler"
+
+lazy val defaultLocation = settingKey[String]("The default query/hash to open in the run task")
+
+defaultLocation := "#showcase"
 
 def readTextFromJar(jar: File, path: String): String = {
     import java.io._
@@ -28,17 +30,19 @@ resourceGenerators in Compile <+= Def.task {
 		(dependencyClasspath in Compile).value.find(_.get(mk).map(f).getOrElse(false)).get.data
 	val materialUI: File = getContainer(m => m.organization == organization.value && m.name == "material-ui")
 	val mjs = dir / "material-ui.js"
-	val mcss = dir / "material-ui.css"
 	IO.copyFile(materialUI / mjs.getName, mjs)
+	val mcss = dir / "material-ui.css"
 	IO.copyFile(materialUI / mcss.getName, mcss)
-	val react: File = getContainer(m => m.organization == "org.webjars" && m.name == "react")
-	val reactjs = dir / "react-with-addons.js"
-	IO.write(reactjs, readTextFromJar(react, "META-INF/resources/webjars/react/0.12.1/react-with-addons.js"))
+	val reactjs = dir / "react-bundle.js"
+	IO.copyFile(materialUI / reactjs.getName, reactjs)
+	// val modernizr: File = getContainer(m => m.organization == "org.webjars" && m.name == "modernizr")
+	// val modernizrjs = dir / "modernizr.js"
+	// IO.write(modernizrjs, readTextFromJar(modernizr, "META-INF/resources/webjars/modernizr/2.8.3/modernizr.js"))
 	Seq(mjs,mcss,reactjs)
 }
 
 run := {
-	val url = "file:" + ((crossTarget in Compile).value / "classes" / "index.html").getCanonicalPath
+	val url = "file:" + ((crossTarget in Compile).value / "classes" / s"index.html${defaultLocation.value}").getCanonicalPath
 	java.awt.Desktop.getDesktop.browse(new java.net.URI(url))
 }
 

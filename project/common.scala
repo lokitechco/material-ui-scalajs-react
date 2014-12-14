@@ -5,6 +5,8 @@ import scala.scalajs.sbtplugin.ScalaJSPlugin.ScalaJSKeys._
 
 object Common {
 
+	val muiVersion = "0.3.3"
+
 	lazy val commonSettings = scalaJSSettings ++ Seq(
 		organization in ThisBuild := "wav.web",
 		scalaVersion in ThisBuild := "2.11.4",
@@ -14,12 +16,9 @@ object Common {
 		muiDependencies) 
 	
 	lazy val muiDependencies = libraryDependencies ++= Seq(
-		"com.github.japgolly.scalajs-react" %%% "core" % "0.6.0",
-		"com.github.japgolly.scalajs-react" %%% "test" % "0.6.0" % "test",
-		"com.github.japgolly.scalajs-react" %%% "ext-scalaz71" % "0.6.0",
+		"com.github.japgolly.scalajs-react" %%% "core" % "0.6.1",
+		"com.github.japgolly.scalajs-react" %%% "test" % "0.6.1" % "test",
+		"com.github.japgolly.scalajs-react" %%% "ext-scalaz71" % "0.6.1",
 		"org.scala-lang.modules.scalajs" %%% "scalajs-dom" % "0.6",
 		"com.scalatags" %%% "scalatags" % "0.4.2")
-
-	lazy val muiJsDependencies = jsDependencies += "org.webjars" % "react" % "0.12.1" % "compile" / "react-with-addons.js" commonJSName "React"
-
 }

@@ -2,17 +2,16 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>material-ui</title>
-    <link href="material-ui.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="react-with-addons.js"></script>
+    <title>Material UI - ScalaJS sampler</title>
+    <link href="../resource_managed/main/material-ui.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../resource_managed/main/react-bundle.js"></script>
+    <script type="text/javascript" src="../resource_managed/main/material-ui.js"></script>
     <script>
-      function require(path) {
-        if (path == 'react' || path == 'react/addons') {
-          return React;
-        }
-      };
+      var React = require('react/addons'),
+        mui = require('material-ui'),
+        injectTapEventPlugin = require('react-tap-event-plugin');
+      injectTapEventPlugin();
     </script>
-    <script type="text/javascript" src="material-ui.js"></script>
     <script type="text/javascript" src="../material-ui-sampler-fastopt.js"></script>
   </head>
   <body>

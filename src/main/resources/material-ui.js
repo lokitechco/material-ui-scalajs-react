@@ -1,43 +1,4 @@
-!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.mui=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-module.exports = {
-  AppBar: require('./js/app-bar.jsx'),
-  AppCanvas: require('./js/app-canvas.jsx'),
-  Checkbox: require('./js/checkbox.jsx'),
-  Dialog: require('./js/dialog.jsx'),
-  DropDownIcon: require('./js/drop-down-icon.jsx'),
-  DropDownMenu: require('./js/drop-down-menu.jsx'),
-  FlatButton: require('./js/flat-button.jsx'),
-  FloatingActionButton: require('./js/floating-action-button.jsx'),
-  IconButton: require('./js/icon-button.jsx'),
-  Icon: require('./js/icon.jsx'),
-  Input: require('./js/input.jsx'),
-  LeftNav: require('./js/left-nav.jsx'),
-  MenuItem: require('./js/menu-item.jsx'),
-  Menu: require('./js/menu.jsx'),
-  Mixins: {
-    Classable: require('./js/mixins/classable.js'),
-    ClickAwayable: require('./js/mixins/click-awayable.js'),
-    WindowListenable: require('./js/mixins/window-listenable.js'),
-  },
-  PaperButton: require('./js/paper-button.jsx'),
-  Paper: require('./js/paper.jsx'),
-  RadioButton: require('./js/radio-button.jsx'),
-  RaisedButton: require('./js/raised-button.jsx'),
-  Ripple: require('./js/ripple.jsx'),
-  Toggle: require('./js/toggle.jsx'),
-  Toast: require('./js/toast.jsx'),
-  Toolbar: require('./js/toolbar.jsx'),
-  ToolbarGroup: require('./js/toolbar-group.jsx'),
-  Utils: {
-    CssEvent: require('./js/utils/css-event.js'),
-    Dom: require('./js/utils/dom.js'),
-    Events: require('./js/utils/events.js'),
-    KeyCode: require('./js/utils/key-code.js'),
-    KeyLine: require('./js/utils/key-line.js')
-  }
-};
-
-},{"./js/app-bar.jsx":2,"./js/app-canvas.jsx":3,"./js/checkbox.jsx":4,"./js/dialog.jsx":5,"./js/drop-down-icon.jsx":6,"./js/drop-down-menu.jsx":7,"./js/flat-button.jsx":9,"./js/floating-action-button.jsx":10,"./js/icon-button.jsx":11,"./js/icon.jsx":12,"./js/input.jsx":13,"./js/left-nav.jsx":14,"./js/menu-item.jsx":15,"./js/menu.jsx":16,"./js/mixins/classable.js":17,"./js/mixins/click-awayable.js":18,"./js/mixins/window-listenable.js":19,"./js/paper-button.jsx":20,"./js/paper.jsx":21,"./js/radio-button.jsx":22,"./js/raised-button.jsx":23,"./js/ripple.jsx":24,"./js/toast.jsx":25,"./js/toggle.jsx":26,"./js/toolbar-group.jsx":27,"./js/toolbar.jsx":28,"./js/utils/css-event.js":29,"./js/utils/dom.js":30,"./js/utils/events.js":31,"./js/utils/key-code.js":32,"./js/utils/key-line.js":33}],2:[function(require,module,exports){
+require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var React = require('react'),
   Classable = require('./mixins/classable.js'),
   IconButton = require('./icon-button.jsx'),
@@ -96,7 +57,7 @@ var AppBar = React.createClass({displayName: 'AppBar',
 });
 
 module.exports = AppBar;
-},{"./icon-button.jsx":11,"./mixins/classable.js":17,"./paper.jsx":21,"react":undefined}],3:[function(require,module,exports){
+},{"./icon-button.jsx":10,"./mixins/classable.js":16,"./paper.jsx":21,"react":"react"}],2:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -129,7 +90,7 @@ var AppCanvas = React.createClass({displayName: 'AppCanvas',
 
 module.exports = AppCanvas;
 
-},{"./mixins/classable.js":17,"react":undefined}],4:[function(require,module,exports){
+},{"./mixins/classable.js":16,"react":"react"}],3:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -191,12 +152,15 @@ var Checkbox = React.createClass({displayName: 'Checkbox',
 
 module.exports = Checkbox;
 
-},{"./mixins/classable.js":17,"react":undefined}],5:[function(require,module,exports){
+},{"./mixins/classable.js":16,"react":"react"}],4:[function(require,module,exports){
 var React = require('react'),
   WindowListenable = require('./mixins/window-listenable.js'),
+  Dom = require('./utils/dom.js'),
   Events = require('./utils/events.js'),
   KeyCode = require('./utils/key-code.js'),
   Classable = require('./mixins/classable'),
+  FlatButton = require('./flat-button.jsx'),
+  Overlay = require('./overlay.jsx'),
   Paper = require('./paper.jsx');
 
 var Dialog = React.createClass({displayName: 'Dialog',
@@ -236,28 +200,23 @@ var Dialog = React.createClass({displayName: 'Dialog',
   },
 
   render: function() {
-    var mainClasses = this.getClasses('dialog', { 'show': this.state.open }),
-      actions = this.props.actions.map(function(a, index) {
-        if (a.onClick) return React.createElement("div", {className: "action", key: index, onClick: a.onClick}, a.text);
-        return React.createElement("div", {className: "action", key: index, onClick: this.dismiss}, a.text);
-      }.bind(this));
+    var classes = this.getClasses('mui-dialog', { 'mui-is-shown': this.state.open }),
+      actions = this._getDialogActions();
 
     return (
-      React.createElement("div", {className: mainClasses}, 
-        React.createElement(Paper, {zDepth: 4}, 
-          React.createElement("h3", {className: "dialog-title"}, 
-            this.props.title
-          ), 
-          React.createElement("div", {className: "dialog-content"}, 
+      React.createElement("div", {className: classes}, 
+        React.createElement(Paper, {ref: "dialogWindow", className: "mui-dialog-window", zDepth: 4}, 
+
+          React.createElement("h3", {className: "mui-dialog-title"}, this.props.title), 
+          React.createElement("div", {ref: "dialogContent", className: "mui-dialog-content"}, 
             this.state.open ? this.props.children : ''
           ), 
-          React.createElement("div", {className: "dialog-actions"}, 
-            React.createElement("div", {className: "actions-right"}, 
-              actions
-            )
+          React.createElement("div", {className: "mui-dialog-actions"}, 
+            React.createElement("div", {className: "mui-dialog-actions-right"}, actions)
           )
+
         ), 
-        React.createElement("div", {className: "dialog-overlay", onClick: this._handleClickAway})
+        React.createElement(Overlay, {show: this.state.open, onTouchTap: this._handleOverlayTouchTap})
       )
     );
   },
@@ -272,15 +231,45 @@ var Dialog = React.createClass({displayName: 'Dialog',
     if (this.props.onShow) this.props.onShow();
   },
 
-  _positionDialog: function() {
-    //calculate height and use that to center the dialog vertically
-    var el = this.getDOMNode(),
-      height = el.offsetHeight;
+  _getDialogActions: function() {
+    return this.props.actions.map(function(a, index) {
 
-    el.style.marginTop = -1 * height / 2 + 'px';
+      var onClickHandler = a.onClick ? a.onClick : this.dismiss;
+      return (
+        React.createElement(FlatButton, {
+          className: "mui-dialog-action", 
+          key: index, 
+          primary: true, 
+          onClick: onClickHandler, 
+          label: a.text})
+      );
+
+    }.bind(this));
   },
 
-  _handleClickAway: function() {
+  _positionDialog: function() {
+    
+    if (this.state.open) {
+
+      var container = this.getDOMNode(),
+        dialogWindow = this.refs.dialogWindow.getDOMNode(),
+        dialogContent = this.refs.dialogContent.getDOMNode(),
+        containerHeight = container.offsetHeight,
+        dialogWindowHeight = dialogWindow.offsetHeight,
+        dialogContentHeight = dialogContent.offsetHeight;
+
+      //Vertically center the dialog window, but make sure it doesn't
+      //transition to that position.
+      container.style.paddingTop = ((containerHeight - dialogWindowHeight) / 2) - 64 + 'px';
+
+      //This is needed to keep the height from changing when the dialog
+      //gets closed
+      dialogContent.style.height = dialogContentHeight + 'px';
+
+    }
+  },
+
+  _handleOverlayTouchTap: function() {
     this.dismiss();
   },
 
@@ -293,7 +282,7 @@ var Dialog = React.createClass({displayName: 'Dialog',
 });
 
 module.exports = Dialog;
-},{"./mixins/classable":17,"./mixins/window-listenable.js":19,"./paper.jsx":21,"./utils/events.js":31,"./utils/key-code.js":32,"react":undefined}],6:[function(require,module,exports){
+},{"./flat-button.jsx":8,"./mixins/classable":16,"./mixins/window-listenable.js":18,"./overlay.jsx":19,"./paper.jsx":21,"./utils/dom.js":30,"./utils/events.js":31,"./utils/key-code.js":32,"react":"react"}],5:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -354,7 +343,7 @@ var DropDownIcon = React.createClass({displayName: 'DropDownIcon',
 
 module.exports = DropDownIcon;
 
-},{"./icon.jsx":12,"./menu-item.jsx":15,"./menu.jsx":16,"./mixins/classable.js":17,"./mixins/click-awayable":18,"./paper.jsx":21,"./utils/key-line.js":33,"react":undefined}],7:[function(require,module,exports){
+},{"./icon.jsx":11,"./menu-item.jsx":14,"./menu.jsx":15,"./mixins/classable.js":16,"./mixins/click-awayable":17,"./paper.jsx":21,"./utils/key-line.js":33,"react":"react"}],6:[function(require,module,exports){
 var React = require('react'),
   Classable = require('./mixins/classable.js'),
   ClickAwayable = require('./mixins/click-awayable'),
@@ -449,7 +438,7 @@ var DropDownMenu = React.createClass({displayName: 'DropDownMenu',
 });
 
 module.exports = DropDownMenu;
-},{"./icon.jsx":12,"./menu.jsx":16,"./mixins/classable.js":17,"./mixins/click-awayable":18,"./paper.jsx":21,"./utils/key-line.js":33,"react":undefined}],8:[function(require,module,exports){
+},{"./icon.jsx":11,"./menu.jsx":15,"./mixins/classable.js":16,"./mixins/click-awayable":17,"./paper.jsx":21,"./utils/key-line.js":33,"react":"react"}],7:[function(require,module,exports){
 var React = require('react'),
   KeyCode = require('./utils/key-code.js'),
   Classable = require('./mixins/classable.js'),
@@ -542,7 +531,7 @@ var EnhancedButton = React.createClass({displayName: 'EnhancedButton',
 });
 
 module.exports = EnhancedButton;
-},{"./mixins/classable.js":17,"./mixins/window-listenable":19,"./utils/key-code.js":32,"react":undefined}],9:[function(require,module,exports){
+},{"./mixins/classable.js":16,"./mixins/window-listenable":18,"./utils/key-code.js":32,"react":"react"}],8:[function(require,module,exports){
 var React = require('react'),
   Classable = require('./mixins/classable.js'),
   EnhancedButton = require('./enhanced-button.jsx'),
@@ -560,10 +549,12 @@ var FlatButton = React.createClass({displayName: 'FlatButton',
   },
 
   render: function() {
-    var $__0=
-      
-      
-         this.props,className=$__0.className,onTouchTap=$__0.onTouchTap,other=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{className:1,onTouchTap:1}),
+    var 
+      $__0=
+        
+        
+        
+        this.props,className=$__0.className,onTouchTap=$__0.onTouchTap,other=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{className:1,onTouchTap:1}),
       classes = this.getClasses('mui-flat-button', {
         'mui-is-primary': this.props.primary
       });
@@ -589,7 +580,7 @@ var FlatButton = React.createClass({displayName: 'FlatButton',
 });
 
 module.exports = FlatButton;
-},{"./enhanced-button.jsx":8,"./mixins/classable.js":17,"./ripple.jsx":24,"react":undefined}],10:[function(require,module,exports){
+},{"./enhanced-button.jsx":7,"./mixins/classable.js":16,"./ripple.jsx":24,"react":"react"}],9:[function(require,module,exports){
 var React = require('react'),
   CssEvent = require('./utils/css-event.js'),
   Classable = require('./mixins/classable.js'),
@@ -666,7 +657,7 @@ var RaisedButton = React.createClass({displayName: 'RaisedButton',
 });
 
 module.exports = RaisedButton;
-},{"./enhanced-button.jsx":8,"./icon.jsx":12,"./mixins/classable.js":17,"./paper.jsx":21,"./ripple.jsx":24,"./utils/css-event.js":29,"react":undefined}],11:[function(require,module,exports){
+},{"./enhanced-button.jsx":7,"./icon.jsx":11,"./mixins/classable.js":16,"./paper.jsx":21,"./ripple.jsx":24,"./utils/css-event.js":29,"react":"react"}],10:[function(require,module,exports){
 var React = require('react'),
   Classable = require('./mixins/classable.js'),
   EnhancedButton = require('./enhanced-button.jsx'),
@@ -712,7 +703,7 @@ var IconButton = React.createClass({displayName: 'IconButton',
 });
 
 module.exports = IconButton;
-},{"./enhanced-button.jsx":8,"./icon.jsx":12,"./mixins/classable.js":17,"./ripple.jsx":24,"react":undefined}],12:[function(require,module,exports){
+},{"./enhanced-button.jsx":7,"./icon.jsx":11,"./mixins/classable.js":16,"./ripple.jsx":24,"react":"react"}],11:[function(require,module,exports){
 var React = require('react'),
   Classable = require('./mixins/classable.js');
 
@@ -739,7 +730,7 @@ var Icon = React.createClass({displayName: 'Icon',
 });
 
 module.exports = Icon;
-},{"./mixins/classable.js":17,"react":undefined}],13:[function(require,module,exports){
+},{"./mixins/classable.js":16,"react":"react"}],12:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -750,6 +741,8 @@ var Input = React.createClass({displayName: 'Input',
   propTypes: {
     multiline: React.PropTypes.bool,
     required: React.PropTypes.bool,
+    inlinePlaceholder: React.PropTypes.bool,
+    rows: React.PropTypes.number,
     min: React.PropTypes.number,
     max: React.PropTypes.number,
     step: React.PropTypes.number,
@@ -767,7 +760,7 @@ var Input = React.createClass({displayName: 'Input',
   getInitialState: function() {
     return {
       value: this.props.defaultValue,
-      rows: 1
+      rows: this.props.rows
     };
   },
 
@@ -793,22 +786,24 @@ var Input = React.createClass({displayName: 'Input',
       'mui-text': this.props.type === 'text',
       'mui-error': this.props.error !== undefined && this.props.error !== null
     }),
+    placeholder = this.props.inlinePlaceholder ? this.props.placeholder : "",
     inputElement = this.props.multiline ?
-      this.props.valueLink ? 
-        React.createElement("textarea", React.__spread({},  this.props, {className: "mui-input-textarea", placeholder: "", 
-          rows: this.state.rows})) : 
+      this.props.valueLink ?
+        React.createElement("textarea", React.__spread({},  this.props, {className: "mui-input-textarea", placeholder: placeholder, 
+          rows: this.state.rows})) :
         React.createElement("textarea", React.__spread({},  this.props, {value: this.state.value, className: "mui-input-textarea", 
-          placeholder: "", rows: this.state.rows, onChange: this._onTextAreaChange})) :
-        this.props.valueLink ? 
-          React.createElement("input", React.__spread({},  this.props, {ref: "input", placeholder: ""})) :
-          React.createElement("input", React.__spread({},  this.props, {ref: "input", value: this.state.value, placeholder: "", 
-            onChange: this._onInputChange}));
+          placeholder: placeholder, rows: this.state.rows, onChange: this._onTextAreaChange})) :
+        this.props.valueLink ?
+          React.createElement("input", React.__spread({},  this.props, {ref: "input", placeholder: placeholder})) :
+          React.createElement("input", React.__spread({},  this.props, {ref: "input", value: this.state.value, placeholder: placeholder, 
+            onChange: this._onInputChange}))
+    placeholderSpan = this.props.inlinePlaceholder ? null : React.createElement("span", {className: "mui-input-placeholder", 
+      onClick: this._onPlaceholderClick}, this.props.placeholder);
 
     return (
       React.createElement("div", {ref: this.props.ref, className: classes}, 
         inputElement, 
-        React.createElement("span", {className: "mui-input-placeholder", 
-          onClick: this._onPlaceholderClick}, this.props.placeholder), 
+        placeholderSpan, 
         React.createElement("span", {className: "mui-input-highlight"}), 
         React.createElement("span", {className: "mui-input-bar"}), 
         React.createElement("span", {className: "mui-input-description"}, this.props.description), 
@@ -858,11 +853,12 @@ var Input = React.createClass({displayName: 'Input',
 
 module.exports = Input;
 
-},{"./mixins/classable.js":17,"react":undefined}],14:[function(require,module,exports){
+},{"./mixins/classable.js":16,"react":"react"}],13:[function(require,module,exports){
 var React = require('react'),
   KeyCode = require('./utils/key-code.js'),
   Classable = require('./mixins/classable.js'),
   WindowListenable = require('./mixins/window-listenable.js'),
+  Overlay = require('./overlay.jsx'),
   Paper = require('./paper.jsx'),
   Menu = require('./menu.jsx');
 
@@ -911,11 +907,7 @@ var LeftNav = React.createClass({displayName: 'LeftNav',
       selectedIndex = this.props.selectedIndex,
       overlay;
 
-    if (!this.props.docked) {
-      overlay = (
-        React.createElement("div", {className: "mui-overlay", onTouchTap: this._onOverlayTouchTap})
-      );
-    }
+    if (!this.props.docked) overlay = React.createElement(Overlay, {show: this.state.open, onTouchTap: this._onOverlayTouchTap});
 
     return (
       React.createElement("div", {className: classes}, 
@@ -962,7 +954,7 @@ var LeftNav = React.createClass({displayName: 'LeftNav',
 });
 
 module.exports = LeftNav;
-},{"./menu.jsx":16,"./mixins/classable.js":17,"./mixins/window-listenable.js":19,"./paper.jsx":21,"./utils/key-code.js":32,"react":undefined}],15:[function(require,module,exports){
+},{"./menu.jsx":15,"./mixins/classable.js":16,"./mixins/window-listenable.js":18,"./overlay.jsx":19,"./paper.jsx":21,"./utils/key-code.js":32,"react":"react"}],14:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -1055,7 +1047,7 @@ var MenuItem = React.createClass({displayName: 'MenuItem',
 
 module.exports = MenuItem;
 
-},{"./icon.jsx":12,"./mixins/classable.js":17,"./ripple.jsx":24,"./toggle.jsx":26,"react":undefined}],16:[function(require,module,exports){
+},{"./icon.jsx":11,"./mixins/classable.js":16,"./ripple.jsx":24,"./toggle.jsx":26,"react":"react"}],15:[function(require,module,exports){
 var React = require('react'),
   CssEvent = require('./utils/css-event.js'),
   Dom = require('./utils/dom.js'),
@@ -1266,14 +1258,9 @@ var Menu = React.createClass({displayName: 'Menu',
       '100%';
 
     //Update the menu width
-    el.style.transition = 'none';
-    el.style.width = menuWidth;
-
-    //force a redraw
-    Dom.forceRedraw(el);
-
-    //put the transition back
-    el.style.transition = '';
+    Dom.withoutTransition(el, function() {
+      el.style.width = menuWidth;
+    });
   },
 
   _renderVisibility: function() {
@@ -1322,7 +1309,7 @@ var Menu = React.createClass({displayName: 'Menu',
 });
 
 module.exports = Menu;
-},{"./menu-item.jsx":15,"./mixins/classable.js":17,"./mixins/click-awayable":18,"./paper.jsx":21,"./utils/css-event.js":29,"./utils/dom.js":30,"./utils/key-line.js":33,"react":undefined}],17:[function(require,module,exports){
+},{"./menu-item.jsx":14,"./mixins/classable.js":16,"./mixins/click-awayable":17,"./paper.jsx":21,"./utils/css-event.js":29,"./utils/dom.js":30,"./utils/key-line.js":33,"react":"react"}],16:[function(require,module,exports){
 var React = require('react/addons'),
   classSet = React.addons.classSet;
 
@@ -1366,7 +1353,7 @@ module.exports = {
 
 }
 
-},{"react/addons":undefined}],18:[function(require,module,exports){
+},{"react/addons":"react/addons"}],17:[function(require,module,exports){
 var Events = require('../utils/events.js'),
   Dom = require('../utils/dom.js');
 
@@ -1394,7 +1381,7 @@ module.exports = {
   }
 
 }
-},{"../utils/dom.js":30,"../utils/events.js":31}],19:[function(require,module,exports){
+},{"../utils/dom.js":30,"../utils/events.js":31}],18:[function(require,module,exports){
 var Events = require('../utils/events.js');
 
 module.exports = {
@@ -1418,7 +1405,37 @@ module.exports = {
   }
   
 }
-},{"../utils/events.js":31}],20:[function(require,module,exports){
+},{"../utils/events.js":31}],19:[function(require,module,exports){
+var React = require('react'),
+  Classable = require('./mixins/classable.js');
+
+var Overlay = React.createClass({displayName: 'Overlay',
+
+  mixins: [Classable],
+
+  propTypes: {
+    show: React.PropTypes.bool
+  },
+
+  render: function() {
+    var 
+      $__0=
+        
+        
+        this.props,className=$__0.className,other=(function(source, exclusion) {var rest = {};var hasOwn = Object.prototype.hasOwnProperty;if (source == null) {throw new TypeError();}for (var key in source) {if (hasOwn.call(source, key) && !hasOwn.call(exclusion, key)) {rest[key] = source[key];}}return rest;})($__0,{className:1}),
+      classes = this.getClasses('mui-overlay', {
+        'mui-is-shown': this.props.show
+      });
+
+    return (
+      React.createElement("div", React.__spread({},  other, {className: classes}))
+    );
+  }
+
+});
+
+module.exports = Overlay;
+},{"./mixins/classable.js":16,"react":"react"}],20:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -1536,7 +1553,7 @@ var PaperButton = React.createClass({displayName: 'PaperButton',
 
 module.exports = PaperButton;
 
-},{"./icon.jsx":12,"./mixins/classable.js":17,"./paper.jsx":21,"./ripple.jsx":24,"./utils/css-event.js":29,"react":undefined}],21:[function(require,module,exports){
+},{"./icon.jsx":11,"./mixins/classable.js":16,"./paper.jsx":21,"./ripple.jsx":24,"./utils/css-event.js":29,"react":"react"}],21:[function(require,module,exports){
 var React = require('react'),
   Classable = require('./mixins/classable.js');
 
@@ -1594,7 +1611,7 @@ var Paper = React.createClass({displayName: 'Paper',
 });
 
 module.exports = Paper;
-},{"./mixins/classable.js":17,"react":undefined}],22:[function(require,module,exports){
+},{"./mixins/classable.js":16,"react":"react"}],22:[function(require,module,exports){
 var React = require('react'),
     Paper = require('./paper.jsx'),
     Classable = require('./mixins/classable.js');
@@ -1651,7 +1668,7 @@ var RadioButton = React.createClass({displayName: 'RadioButton',
 });
 
 module.exports = RadioButton;
-},{"./mixins/classable.js":17,"./paper.jsx":21,"react":undefined}],23:[function(require,module,exports){
+},{"./mixins/classable.js":16,"./paper.jsx":21,"react":"react"}],23:[function(require,module,exports){
 var React = require('react'),
   CssEvent = require('./utils/css-event.js'),
   Classable = require('./mixins/classable.js'),
@@ -1724,7 +1741,7 @@ var RaisedButton = React.createClass({displayName: 'RaisedButton',
 });
 
 module.exports = RaisedButton;
-},{"./enhanced-button.jsx":8,"./mixins/classable.js":17,"./paper.jsx":21,"./ripple.jsx":24,"./utils/css-event.js":29,"react":undefined}],24:[function(require,module,exports){
+},{"./enhanced-button.jsx":7,"./mixins/classable.js":16,"./paper.jsx":21,"./ripple.jsx":24,"./utils/css-event.js":29,"react":"react"}],24:[function(require,module,exports){
 var React = require('react'),
   CssEvent = require('./utils/css-event.js'),
   Dom = require('./utils/dom.js'),
@@ -1777,7 +1794,7 @@ var Ripple = React.createClass({displayName: 'Ripple',
 });
 
 module.exports = Ripple;
-},{"./mixins/classable.js":17,"./utils/css-event.js":29,"./utils/dom.js":30,"react":undefined}],25:[function(require,module,exports){
+},{"./mixins/classable.js":16,"./utils/css-event.js":29,"./utils/dom.js":30,"react":"react"}],25:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react');
@@ -1839,7 +1856,7 @@ var Toast = React.createClass({displayName: 'Toast',
 
 module.exports = Toast;
 
-},{"./mixins/classable.js":17,"./mixins/click-awayable.js":18,"react":undefined}],26:[function(require,module,exports){
+},{"./mixins/classable.js":16,"./mixins/click-awayable.js":17,"react":"react"}],26:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -1852,14 +1869,21 @@ var React = require('react'),
 var Toggle = React.createClass({displayName: 'Toggle',
 
   propTypes: {
-    onToggle: React.PropTypes.func
+    onToggle: React.PropTypes.func,
+    toggled: React.PropTypes.bool
   },
 
   mixins: [Classable],
 
-  getInitialState: function() {
+  getDefaultProps: function() {
     return {
       toggled: false
+    };
+  },
+
+  getInitialState: function() {
+    return {
+      toggled: this.props.toggled
     }
   },
 
@@ -1894,7 +1918,7 @@ var Toggle = React.createClass({displayName: 'Toggle',
 
 module.exports = Toggle;
 
-},{"./mixins/classable.js":17,"./paper.jsx":21,"./radio-button.jsx":22,"react":undefined}],27:[function(require,module,exports){
+},{"./mixins/classable.js":16,"./paper.jsx":21,"./radio-button.jsx":22,"react":"react"}],27:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var Classable = require('./mixins/classable.js');
@@ -1926,7 +1950,7 @@ var ToolbarGroup = React.createClass({displayName: 'ToolbarGroup',
 
 module.exports = ToolbarGroup;
 
-},{"./mixins/classable.js":17,"react":undefined}],28:[function(require,module,exports){
+},{"./mixins/classable.js":16,"react":"react"}],28:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var Classable = require('./mixins/classable.js');
@@ -1951,7 +1975,7 @@ var Toolbar = React.createClass({displayName: 'Toolbar',
 
 module.exports = Toolbar;
 
-},{"./mixins/classable.js":17,"react":undefined}],29:[function(require,module,exports){
+},{"./mixins/classable.js":16,"react":"react"}],29:[function(require,module,exports){
 var Events = require('./events.js');
 
 module.exports = {
@@ -2060,6 +2084,19 @@ module.exports = {
     el.style.display = 'none';
     el.offsetHeight;
     el.style.display = originalDisplay;
+  },
+
+  withoutTransition: function(el, callback) {
+    //turn off transition
+    el.style.transition = 'none';
+    
+    callback();
+
+    //force a redraw
+    this.forceRedraw(el);
+
+    //put the transition back
+    el.style.transition = '';
   }
   
 }
@@ -2107,5 +2144,44 @@ module.exports = {
   }
 }
 
-},{}]},{},[1])(1)
-});
+},{}],"material-ui":[function(require,module,exports){
+module.exports = {
+  AppBar: require('./js/app-bar.jsx'),
+  AppCanvas: require('./js/app-canvas.jsx'),
+  Checkbox: require('./js/checkbox.jsx'),
+  Dialog: require('./js/dialog.jsx'),
+  DropDownIcon: require('./js/drop-down-icon.jsx'),
+  DropDownMenu: require('./js/drop-down-menu.jsx'),
+  EnhancedButton: require('./js/enhanced-button.jsx'),
+  FlatButton: require('./js/flat-button.jsx'),
+  FloatingActionButton: require('./js/floating-action-button.jsx'),
+  IconButton: require('./js/icon-button.jsx'),
+  Icon: require('./js/icon.jsx'),
+  Input: require('./js/input.jsx'),
+  LeftNav: require('./js/left-nav.jsx'),
+  MenuItem: require('./js/menu-item.jsx'),
+  Menu: require('./js/menu.jsx'),
+  Mixins: {
+    Classable: require('./js/mixins/classable.js'),
+    ClickAwayable: require('./js/mixins/click-awayable.js'),
+    WindowListenable: require('./js/mixins/window-listenable.js'),
+  },
+  PaperButton: require('./js/paper-button.jsx'),
+  Paper: require('./js/paper.jsx'),
+  RadioButton: require('./js/radio-button.jsx'),
+  RaisedButton: require('./js/raised-button.jsx'),
+  Ripple: require('./js/ripple.jsx'),
+  Toggle: require('./js/toggle.jsx'),
+  Toast: require('./js/toast.jsx'),
+  Toolbar: require('./js/toolbar.jsx'),
+  ToolbarGroup: require('./js/toolbar-group.jsx'),
+  Utils: {
+    CssEvent: require('./js/utils/css-event.js'),
+    Dom: require('./js/utils/dom.js'),
+    Events: require('./js/utils/events.js'),
+    KeyCode: require('./js/utils/key-code.js'),
+    KeyLine: require('./js/utils/key-line.js')
+  }
+};
+
+},{"./js/app-bar.jsx":1,"./js/app-canvas.jsx":2,"./js/checkbox.jsx":3,"./js/dialog.jsx":4,"./js/drop-down-icon.jsx":5,"./js/drop-down-menu.jsx":6,"./js/enhanced-button.jsx":7,"./js/flat-button.jsx":8,"./js/floating-action-button.jsx":9,"./js/icon-button.jsx":10,"./js/icon.jsx":11,"./js/input.jsx":12,"./js/left-nav.jsx":13,"./js/menu-item.jsx":14,"./js/menu.jsx":15,"./js/mixins/classable.js":16,"./js/mixins/click-awayable.js":17,"./js/mixins/window-listenable.js":18,"./js/paper-button.jsx":20,"./js/paper.jsx":21,"./js/radio-button.jsx":22,"./js/raised-button.jsx":23,"./js/ripple.jsx":24,"./js/toast.jsx":25,"./js/toggle.jsx":26,"./js/toolbar-group.jsx":27,"./js/toolbar.jsx":28,"./js/utils/css-event.js":29,"./js/utils/dom.js":30,"./js/utils/events.js":31,"./js/utils/key-code.js":32,"./js/utils/key-line.js":33}]},{},[]);

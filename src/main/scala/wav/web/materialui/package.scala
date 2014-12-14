@@ -7,8 +7,4 @@ package object materialui {
 
   private[materialui] val log = (o: js.Any) => js.Dynamic.global.console.log(o)
 
-  private[materialui] val reactJS = g.React
-
-  private[materialui] val mui = g.mui
-
 }

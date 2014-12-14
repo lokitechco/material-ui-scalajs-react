@@ -1,30 +1,73 @@
 package wav.web.materialui.sampler
 
-import scala.scalajs.js
+import scalajs.js
 import js.Dynamic.{ global => g }
 import org.scalajs.dom
-import dom.{ document, window }
+import wav.web.materialui._
+import japgolly.scalajs.react._
+import vdom.ReactVDom._
+import all._
 
 object App extends js.JSApp {
 
   def main(target: dom.HTMLDivElement): Unit = {
     target.innerHTML = """<div id="nav"></div><div id="content"></div>"""
-    e[dom.HTMLElement]("nav").innerHTML = "items"
+    React.render(Sampler, el[dom.HTMLDivElement]("nav"))
     dom.onhashchange = (_: dom.Event) => {
-      samples.get(hash.toLowerCase).foreach(mount => mount(e("content")))
+      samples.get(hash.toLowerCase).foreach(rel => React.render(rel, el("content")))
     }
-    samples.get(hash.toLowerCase).foreach(mount => mount(e("content")))
   }
+
   def main(): Unit =
-    main(e("scala"))
+    main(el("scala"))
 
-  private def hash: String = if (window.location.hash.length > 0) window.location.hash.substring(1) else ""
+  private def hash: String = if (dom.window.location.hash.length > 0) dom.window.location.hash.substring(1) else ""
 
-  private def e[T <: dom.HTMLElement](id: String): T =
+  private def pathname(location: String): String =
+    dom.window.location.pathname + "#" + location
+
+  private def el[T <: dom.HTMLElement](id: String): T =
     g.document.getElementById(id).asInstanceOf[T]
-    
-  private val samples = Map[String, dom.HTMLDivElement => Unit](
-    "icon" -> Samples.icon _,
-    "dialog" -> Samples.dialog _
-    )
+
+  val samples = {
+    import Samples._
+    Map[String, ReactElement](
+      "/samples/icon" -> IconSample,
+      "/samples/dialog" -> DialogSample)
+  }
+
+  class SamplerBackend(T: BackendScope[_, Map[String, ReactElement]]) {
+    private val navRef = LeftNav.Ref("nav")
+    def toggle = {
+      log("Toggled")
+      navRef(T).toggle 
+    }
+    def close = {
+      log("Closed")
+      navRef(T).close 
+    }
+  }
+
+  val Sampler: ReactElement = {
+    ReactComponentB[Unit]("Sampler")
+      .initialState(samples)
+      .backend(new SamplerBackend(_))
+      .render((_, S, B) =>
+        div(
+          IconButtonU(
+            "navigation-menu",
+            onTouchTap = (ev: SyntheticTouchEvent[dom.HTMLDivElement]) => B.toggle).noChildren,
+          LeftNavU(
+            ref = "nav",
+            menuItems = S.map { e =>
+              val (id, _) = e
+              MenuItem(
+                  text = id, 
+                  payload = pathname(id),
+                  onClick = (ev: SyntheticMouseEvent[dom.HTMLDivElement], i: Int) => B.close)
+            }.toJsArray)
+            .noChildren))
+      .buildU
+      .apply()
+  }
 }
