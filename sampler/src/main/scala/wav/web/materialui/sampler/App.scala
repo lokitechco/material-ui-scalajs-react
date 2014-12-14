@@ -12,8 +12,10 @@ object App extends js.JSApp {
 
   def main(target: dom.HTMLDivElement): Unit = {
     target.innerHTML = """<div id="nav"></div><div id="content"></div>"""
-    React.render(Sampler, el[dom.HTMLDivElement]("nav"))
+    val samplerM = React.render(Sampler, el[dom.HTMLDivElement]("nav"))
+    val navRef = LeftNav.Ref("nav")
     dom.onhashchange = (_: dom.Event) => {
+      navRef(samplerM).close
       samples.get(hash.toLowerCase).foreach(rel => React.render(rel, el("content")))
     }
   }
@@ -40,11 +42,11 @@ object App extends js.JSApp {
     private val navRef = LeftNav.Ref("nav")
     def toggle = {
       log("Toggled")
-      navRef(T).toggle 
+      navRef(T).toggle
     }
     def close = {
       log("Closed")
-      navRef(T).close 
+      navRef(T).close
     }
   }
 
@@ -62,9 +64,8 @@ object App extends js.JSApp {
             menuItems = S.map { e =>
               val (id, _) = e
               MenuItem(
-                  text = id, 
-                  payload = pathname(id),
-                  onClick = (ev: SyntheticMouseEvent[dom.HTMLDivElement], i: Int) => B.close)
+                text = id,
+                payload = pathname(id))
             }.toJsArray)
             .noChildren))
       .buildU

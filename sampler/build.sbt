@@ -4,7 +4,7 @@ name := "material-ui-sampler"
 
 lazy val defaultLocation = settingKey[String]("The default query/hash to open in the run task")
 
-defaultLocation := "#showcase"
+defaultLocation := "#"
 
 def readTextFromJar(jar: File, path: String): String = {
     import java.io._
