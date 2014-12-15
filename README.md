@@ -1,6 +1,6 @@
 ## What's this?
 
-It's a ScalaJS wrapper of [material-ui.com](material-ui.com) for use with [scalajs-react](https://github.com/japgolly/scalajs-react)
+It's a ScalaJS wrapper of [material-ui.com](http://material-ui.com) for use with [scalajs-react](https://github.com/japgolly/scalajs-react)
 
 Wrappers in this project are simply case classes that represent props in react object. A macro creates the actual `js.Object` and a method that accepts "child props"/elements.
 
