@@ -4,9 +4,8 @@ import scalajs.js
 import org.scalajs.dom
 import wav.web.materialui._
 import japgolly.scalajs.react._
-import vdom.ReactVDom._
-import all._
-import org.scalajs.dom.HTMLDivElement
+import japgolly.scalajs.react._
+import japgolly.scalajs.react.vdom.all._
 
 object Samples {
 

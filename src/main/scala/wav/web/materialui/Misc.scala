@@ -4,8 +4,7 @@ import wav.web.materialui.muimacros.JSObjectConverter._
 import scala.scalajs.js
 import org.scalajs.dom.{ document, window, HTMLInputElement, HTMLDivElement }
 import japgolly.scalajs.react._
-import vdom.ReactVDom._
-import all._
+import japgolly.scalajs.react.vdom.all._
 
 object Dialog {
   case class Action(text: String, onClick: () => _) {
