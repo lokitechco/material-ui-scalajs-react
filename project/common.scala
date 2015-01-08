@@ -22,5 +22,4 @@ object Common {
 		"com.github.japgolly.scalajs-react" %%% "test" % "0.7.1" % "test",
 		"com.github.japgolly.scalajs-react" %%% "ext-scalaz71" % "0.7.1",
 		"com.github.japgolly.scalajs-react" %%% "ext-monocle" % "0.7.1")
-
 }
