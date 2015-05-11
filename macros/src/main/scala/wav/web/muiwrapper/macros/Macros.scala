@@ -1,4 +1,4 @@
-package wav.web.materialui.muimacros
+package wav.web.muiwrapper.macros
 
 import scala.language.experimental.macros
 import scala.reflect.macros.blackbox.Context
@@ -30,8 +30,10 @@ object JSObjectConverter {
         returnType.typeArgs(0) <:< typeOf[{ val toJs: js.Object }]) {
         val toJsTypeSymbol = returnType.typeArgs(0).typeSymbol
         (0, q"""$decoded -> t.$name.map((o: $toJsTypeSymbol) => o.toJs)""")
-      } else if (returnType <:< typeOf[js.UndefOr[_]]) {
-        if (returnType.typeArgs(0) <:< typeOf[{ val toJs: js.Object }]) {
+      } else if (returnType <:< typeOf[Option[_]] ||
+        returnType <:< typeOf[js.UndefOr[_]]) {
+        if (returnType.typeArgs(0) <:< typeOf[{ val toJs: js.Object }]
+        ) {
           (1, q"""t.$name.foreach(v => p.updateDynamic($decoded)(v.toJs))""")
         } else {
           (1, q"""t.$name.foreach(v => p.updateDynamic($decoded)(v))""")
@@ -44,7 +46,7 @@ object JSObjectConverter {
     val vals = pieces.filter(t => t._1 == 0).map(_._2)
     val undefs = pieces.filter(t => t._1 == 1).map(_._2)
     q"""
-    new wav.web.materialui.muimacros.JSObjectConverter[$tpe] {
+    new wav.web.muiwrapper.macros.JSObjectConverter[$tpe] {
       def apply(t: $tpe): scala.scalajs.js.Object = {
         val p = scala.scalajs.js.Dynamic.literal(..$vals)
         ..$undefs

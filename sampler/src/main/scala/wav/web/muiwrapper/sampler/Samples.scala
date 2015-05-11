@@ -1,8 +1,8 @@
-package wav.web.materialui.sampler
+package wav.web.muiwrapper.sampler
 
 import scalajs.js
-import org.scalajs.dom
-import wav.web.materialui._
+import org.scalajs.dom, dom.html.{Div}
+import wav.web.muiwrapper._
 import japgolly.scalajs.react._
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.all._
@@ -21,12 +21,12 @@ object Samples {
     .stateless
     .backend(new DialogSampleBackend(_))
     .render((_, _, B) => {
-      div(RaisedButtonU(label = "Open Dialog", onTouchTap = (e: SyntheticTouchEvent[dom.HTMLDivElement]) => B.show).noChildren,
+      div(RaisedButtonU(label = "Open Dialog", onTouchTap = Some((e: SyntheticTouchEvent[Div]) => B.show)).noChildren,
         DialogU(
-          ref = "dialogSample--dialog",
-          title = "test",
-          onDismiss = () => log("Closed"),
-          onShow = () => log("Opened"),
+          ref = Some("dialogSample--dialog"),
+          title = Some("test"),
+          onDismiss = Some(() => log("Closed")),
+          onShow = Some(() => log("Opened")),
           actions = js.Array(
             Dialog.Action("Cancel", B.dismiss _),
             Dialog.Action("OK", B.dismiss _)))

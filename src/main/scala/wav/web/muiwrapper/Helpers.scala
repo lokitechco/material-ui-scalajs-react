@@ -1,4 +1,4 @@
-package wav.web.materialui
+package wav.web.muiwrapper
 
 import scalajs.js
 import scala.scalajs.js.Dynamic.{ global => g }
