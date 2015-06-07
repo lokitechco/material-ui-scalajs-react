@@ -1,7 +1,7 @@
 package wav.web.muiwrapper
 
 import japgolly.scalajs.react.{TopNode, ReactComponentSpec}
-import wav.web.muiwrapper.macros.JS
+import wav.common.scalajs.macros.JS
 import scala.scalajs.js
 
 package object mui {

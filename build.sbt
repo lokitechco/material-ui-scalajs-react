@@ -31,17 +31,14 @@ val muiSources = Def.task {
   targets
 }
 
-lazy val `mui-wrapper-macros` = project.in(file("macros"))
-  .settings(
-    libraryDependencies ++= Seq(
-      "org.scala-js" %% "scalajs-library" % currentScalaJSVersion % "compile",
-      "org.scala-lang" % "scala-reflect" % scalaVersion.value % "compile"))
-
 lazy val `mui-wrapper` = (project in file("."))
-  .dependsOn(`mui-wrapper-macros`, `scalajs-react`)
+  .dependsOn(`scalajs-react`)
   .settings(
     resourceGenerators in Compile <+= muiSources,
-    libraryDependencies in ThisBuild ++= Seq(
+    resolvers ++= Seq(
+      Resolver.url("wav", url("https://dl.bintray.com/wav/maven"))(Resolver.ivyStylePatterns)),
+    libraryDependencies ++= Seq(
+      "wav.common" %% "scala-macros" % "0.1.0"
     //  "com.github.japgolly.scalajs-react" %%% "core" % "0.9.0"
     ))
 
@@ -51,7 +48,7 @@ lazy val `scalajs-react` = ProjectRef(uri("https://github.com/wav/scalajs-react.
 
 lazy val `mui-wrapper-sampler` = project.in(file("sampler"))
   .enablePlugins(ScalaJSPlugin)
-  .dependsOn(`mui-wrapper-macros`, `mui-wrapper`)
+  .dependsOn(`mui-wrapper`)
   .settings(
     defaultLocation := "index.html#",
     resourceGenerators in Compile <+= Def.task {
@@ -76,7 +73,6 @@ sampler in ThisBuild := {
 scalacOptions in ThisBuild ++= Seq(
   "-deprecation", "-unchecked", "-feature",
   "-language:implicitConversions",
-  "-language:higherKinds",
-  "-language:existentials")
+  "-language:higherKinds")
 
 updateOptions := updateOptions.value.withCachedResolution(true)

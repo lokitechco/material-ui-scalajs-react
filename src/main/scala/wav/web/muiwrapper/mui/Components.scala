@@ -1,6 +1,6 @@
 package wav.web.muiwrapper.mui
 
-import wav.web.muiwrapper.macros.JS
+import wav.common.scalajs.macros.JS
 import japgolly.scalajs.react._
 import org.scalajs.dom.Node
 
