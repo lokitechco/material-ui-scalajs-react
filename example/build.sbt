@@ -8,6 +8,8 @@ lazy val app = project.in(file("."))
   .enablePlugins(ScalaJSPlugin)
   .dependsOn(`mui-wrapper`)
   .settings(
+    persistLauncher in Compile := true,
+    persistLauncher in Test := false,
     resourceGenerators in Compile <+= Def.task {
       val log = streams.value.log
       log.info(s"APP: ${((classDirectory in Compile).value / "material-ui-app.html").getCanonicalPath}")
@@ -18,3 +20,5 @@ lazy val app = project.in(file("."))
       IO.copy(mappings, true)
       mappings.map(_._2)
     })
+
+updateOptions := updateOptions.value.withCachedResolution(true)

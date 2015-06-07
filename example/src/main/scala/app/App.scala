@@ -11,7 +11,7 @@ object App extends js.JSApp {
     .stateless
     .noBackend
     .render(_ => FontIcon("material-icons")("menu"))
-    // React requires context properties to be set for all top level components
+    // mui requires context properties to be set, this is done on top-level components.
     .hackSpec(installMuiContext)
     .buildU
 
