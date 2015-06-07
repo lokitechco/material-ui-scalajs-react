@@ -1,3 +1,6 @@
 user.sbt
 **/target/
 .idea
+npm-debug.log
+Components.scala.gen
+package.json

@@ -10,11 +10,27 @@ Wrappers in this project are simply case classes that represent props in react o
 
 At this stage, this is an experiment (low priority).
 
+## Usage
+
+Bootstrap with [resources](src/main/resources/material-ui-template.html)
+
+See the [example build](example)
+
+Reference this project in your build and use it's resources.
+
+## Caveats
+
+- `scalajs-react` currently doesn't have a way to define a react context. A fork is used as a hack.
+
+- The react bundle (prepared with browserify) in this project must be used.
+
+## Sampler
+
+Open the sampler in the browser with `sbt sampler`.
+
 ## Development notes
 
-Open the sampler in the browser with `sbt run`.
-
-To update Material UI delete the `material-ui.js` and `material-ui.css` in the resources directory.
+To update Material UI delete the `material-ui.js` in the resources directory.
 
 If something doesn't work, inspect the underlying js.Object's in the console.
 
