@@ -1,10 +1,11 @@
 package wav.web.muiwrapper.sampler
 
+import scala.scalajs.js.annotation.JSExport
 import scalajs.js
 import org.scalajs.dom, dom.html.Div
-import wav.web.muiwrapper.mui.installMuiContext
 import japgolly.scalajs.react._
 
+@JSExport("SamplerApp")
 object App extends js.JSApp {
 
   private val nav = "nav"
@@ -23,6 +24,17 @@ object App extends js.JSApp {
         sampler.mainRef.M(mainM)(_.close)
         true
       }
+    startBuildService()
+  }
+
+  def startBuildService(): Unit = {
+    import wav.devtools.sbt.httpserver.buildservice.BuildService
+    def onBuildEvent(project: String, event: String): Unit =
+      if (project == "mui-wrapper-sampler" && event == "compiled")
+        dom.location.reload()
+
+    BuildService.configure(_.onBuildEvent = onBuildEvent _)
+    BuildService().foreach(_.start())
   }
 
 }

@@ -19,11 +19,13 @@ Use wrappers.
 
 ## Usage
 
-Bootstrap with [resources](src/main/resources/material-ui-template.html) and reference this project in your build and use it's resources.
+Reference this project in your build and use it's resources.
+
+Bootstraping the application: [material-ui-app.html](src/main/resources/material-ui-app.html) 
 
 See the [example build](example) and the [sampler](sampler/src/main/scala/wav/web/muiwrapper/sampler/)
 
-Open the sampler in the browser with `sbt sampler`.
+Open the sampler in the browser with `sbt sampler` or `sbt sampler http`.
 
 ## Caveats
 

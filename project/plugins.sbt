@@ -1,1 +1,9 @@
 addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.3")
+
+resolvers ++= Seq(
+  Resolver.url("wav", url("https://dl.bintray.com/wav/maven"))(Resolver.ivyStylePatterns),
+  "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases") // scalaz-stream
+
+addSbtPlugin("wav.devtools" % "sbt-httpserver" % "0.3.1")
+
+scalacOptions ++= Seq("-deprecation", "-unchecked", "-feature")
