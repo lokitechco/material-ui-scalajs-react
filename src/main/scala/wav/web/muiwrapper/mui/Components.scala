@@ -16,6 +16,41 @@ case class Paper(
   ref: Option[String] = None,
   style: Option[js.Object] = None)
 
+// Text
+
+//√
+trait TextFieldM extends TopNode {
+  def blur(): Unit = js.native
+  def clearValue(): Unit = js.native
+  def focus(): Unit = js.native
+  def getValue(): String = js.native
+  def setValue(value: String): Unit = js.native
+  def setErrorText(error: String): Unit = js.native
+}
+
+//√
+case class TextField(
+  hintText: Option[String] = None,
+  errorText: Option[String] = None,
+  floatingLabelText: Option[String] = None,
+  multiLine: Boolean = false,
+  rows: Int = 1,
+
+  // REVIEW: look into passing all react input props
+  `type`: Option[String] = None,
+  id: Option[String] = None,
+  value: Option[String] = None,
+  defaultValue: Option[String] = None,
+
+  onChange: Option[SyntheticEvent[Node] => _] = None,
+  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
+  onKeyDown: Option[SyntheticKeyboardEvent[Node] => _] = None,
+  onEnterKeyDown: Option[SyntheticKeyboardEvent[Node] => _] = None,
+  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
+
+  ref: Option[String] = None,
+  style: Option[js.Object] = None)
+
 // Icons
 
 //√
@@ -28,16 +63,17 @@ case class FontIcon(
 
 //√
 case class SvgIcon(
+  viewBox: Option[String] = None,
   ref: Option[String] = None,
   style: Option[js.Object] = None)
 
-// Buttons
+// Buttons (EnhancedButton)
 
 //case class EnhancedButton(
 //  ref: Option[String] = None,
 //  touchRippleColor: String,
 //  disabled: Boolean,
-//  onBlur: SyntheticFocusEvent[Node] => _,
+//  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
 //  onMouseOver: SyntheticMouseEvent[Node] => _,
 //  centerRipple: Boolean,
 //  disableFocusRipple: Boolean,
@@ -45,14 +81,18 @@ case class SvgIcon(
 //  style: Option[js.Object] = None,
 //  disableTouchRipple: Boolean,
 //  linkButton: Boolean,
-//  onKeyboardFocus: SyntheticFocusEvent[Node] => _,
+//  onKeyboardFocus: Option[SyntheticFocusEvent[Node] => _] = None,
 //  focusRippleOpacity: Int,
 //  className: String,
 //  touchRippleOpacity: Int,
 //  onMouseOut: SyntheticMouseEvent[Node] => _,
-//  onFocus: SyntheticFocusEvent[Node] => _,
+//  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
 //  focusRippleColor: String,
 //  keyboardFocused: Boolean)
+
+trait EnhancedButtonM extends TopNode {
+  def isKeyboardFocused(): Boolean = js.native
+}
 
 //√
 case class IconButton(
@@ -60,14 +100,16 @@ case class IconButton(
   disabled: Boolean = false,
   iconClassName: Option[String] = None,
   iconStyle: Option[js.Object] = None,
+  linkButton: Boolean = false,
+  mini: Boolean = true,
   tooltip: Option[String] = None,
   touch: Boolean = false,
 
   onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
   onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
+  onMouseOut: Option[SyntheticMouseEvent[Node] => _] = None,
   onTouchTap:  Option[SyntheticTouchEvent[Node] => _] = None,
   onMouseOver: Option[SyntheticMouseEvent[Node] => _] = None,
-  onMouseOut: Option[SyntheticMouseEvent[Node] => _] = None,
 
   ref: Option[String] = None,
   style: Option[js.Object] = None)
@@ -76,6 +118,9 @@ case class IconButton(
 case class FlatButton(
   label: String,
   labelStyle: Option[js.Object] = None,
+  iconClassName: Option[js.Object] = None,
+  iconStyle: Option[js.Object] = None,
+  mini: Boolean = true,
   disabled: Boolean = false,
   primary: Boolean = false,
   secondary: Boolean = false,
@@ -96,6 +141,10 @@ case class FlatButton(
 case class RaisedButton(
   label: String,
   labelStyle: Option[js.Object] = None,
+  iconClassName: Option[js.Object] = None,
+  iconStyle: Option[js.Object] = None,
+  linkButton: Boolean = false,
+  mini: Boolean = true,
   disabled: Boolean = false,
   primary: Boolean = false,
   secondary: Boolean = false,
@@ -108,6 +157,115 @@ case class RaisedButton(
 
   ref: Option[String] = None,
   style: Option[js.Object] = None)
+
+case class FloatingActionButton(
+  iconClassName: Option[js.Object] = None,
+  iconStyle: Option[js.Object] = None,
+  linkButton: Boolean = false,
+  mini: Boolean = true,
+  labelStyle: Option[js.Object] = None,
+  disabled: Boolean = false,
+  secondary: Boolean = false,
+
+  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
+  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
+  onTouchTap:  Option[SyntheticTouchEvent[Node] => _] = None,
+  onMouseOver: Option[SyntheticMouseEvent[Node] => _] = None,
+  onMouseOut: Option[SyntheticMouseEvent[Node] => _] = None,
+
+  ref: Option[String] = None,
+  style: Option[js.Object] = None)
+
+// Switches
+
+object EnhancedSwitch {
+  type OnChange = (SyntheticEvent[Node], Boolean) => _
+}
+
+trait EnhancedSwitchM extends TopNode {
+  def isSwitched(): Boolean = js.native
+  def setSwitched(switched: Boolean): Unit = js.native
+  def getValue(): Boolean = js.native
+  def isKeyboardFocused(): Boolean = js.native
+}
+
+
+trait CheckboxM extends EnhancedSwitchM {
+  def isChecked(): Boolean = js.native
+  def setChecked(checked: Boolean): Unit = js.native
+}
+
+object HorizontalPosition extends Enumeration {
+  val left = Value
+  val right = Value
+}
+
+case class Checkbox(
+  label: Option[String] = None,
+  labelPosition: HorizontalPosition.Value = HorizontalPosition.right,
+  defaultChecked: Boolean = false,
+  iconStyle: Option[js.Object] = None,
+
+  onCheck: Option[EnhancedSwitch.OnChange] = None,
+
+  name: Option[String] = None,
+  value: Option[String] = None,
+
+  style: Option[js.Object] = None,
+  ref: Option[String] = None)
+
+
+trait RadioButtonM extends EnhancedSwitchM {
+  def isChecked(): Boolean = js.native
+  def setChecked(checked: Boolean): Unit = js.native
+}
+
+case class RadioButton(
+  label: Option[String] = None,
+  labelPosition: HorizontalPosition.Value = HorizontalPosition.right,
+  defaultChecked: Boolean = false,
+  iconStyle: Option[js.Object] = None,
+  onCheck: Option[EnhancedSwitch.OnChange] = None,
+
+  ref: Option[String] = None,
+  style: Option[js.Object] = None)
+
+trait RadioButtonGroupM extends TopNode {
+  def getSelectedValue(): js.UndefOr[String] = js.native
+  def setSelectedValue(value: String): Unit = js.native
+  def clearValue(): Unit = js.native
+}
+
+case class RadioButtonGroup(
+  name: String,
+
+  valueSelected: Option[String] = None,
+  defaultSelected: Option[String] = None,
+  labelPosition: HorizontalPosition.Value = HorizontalPosition.right,
+  onChange: Option[EnhancedSwitch.OnChange] = None,
+
+  ref: Option[String] = None)
+
+trait ToggleM extends TopNode {
+  def isToggled(): Boolean = js.native
+  def setToggled(toggled: Boolean): Unit = js.native
+}
+
+case class Toggle(
+  defaultToggled: Boolean = false,
+  elementStyle: Option[js.Object] = None,
+  label: Option[String] = None,
+  labelPosition: HorizontalPosition.Value = HorizontalPosition.right,
+
+  onToggle: Option[EnhancedSwitch.OnChange] = None,
+
+  name: Option[String] = None,
+  value: Option[String] = None,
+
+  style: Option[js.Object] = None,
+  ref: Option[String] = None)
+
+// Menus
 
 case class MenuAction(text: String, onClick: () => _) {
   val toJs = JS[MenuAction].apply(this)
@@ -129,11 +287,73 @@ case class Dialog(
   openImmediately: Boolean = false,
   modal: Boolean = false,
   title: Option[String] = None,
+  repositionOnUpdate: Boolean = true,
 
   onShow: Option[() => _] = None,
   onDismiss: Option[() => _] = None,
   onClickAway: Option[() => _] = None,
-  //  repositionOnUpdate: Boolean,
+
+  ref: Option[String] = None,
+  style: Option[js.Object] = None)
+
+object DatePicker {
+  object Mode extends Enumeration {
+    val portrait = Value
+    val landscape = Value
+  }
+}
+
+trait DatePickerM extends DialogM {
+  def getDate(): js.Date = js.native
+  def setDate(d: js.Date): Unit = js.native
+}
+
+case class DatePicker(
+  mode: Option[DatePicker.Mode.Value] = None,
+  initialDate: Option[js.Date] = None,
+  formatDate: Option[String] = None,
+  minDate: Option[js.Date] = None,
+  maxDate: Option[js.Date] = None,
+  shouldDisableDate: Option[js.Date => Boolean] = None, // day => Boolean
+  hideToolbarYearChange: Boolean = false,
+  showYearSelector: Boolean = false,
+  autoOk: Boolean = false,
+
+  actions: Option[js.Array[MenuAction]] = None,
+  actionFocus: Option[String] = None,
+  contentClassName: Option[String] = None,
+  contentInnerStyle: Option[js.Object] = None,
+  contentStyle: Option[js.Object] = None,
+  openImmediately: Boolean = false,
+  modal: Boolean = false,
+  title: Option[String] = None,
+  repositionOnUpdate: Boolean = true,
+
+  onAccept: Option[() => _] = None,
+  onShow: Option[() => _] = None,
+  onDismiss: Option[() => _] = None,
+  onClickAway: Option[() => _] = None,
+
+  ref: Option[String] = None,
+  style: Option[js.Object] = None)
+
+
+//√
+trait LeftNavM extends TopNode {
+  def close(): Unit = js.native
+  def toggle(): Unit = js.native
+}
+
+case class LeftNav(
+  docked: Boolean = true,
+  header: Option[String] = None,
+  menuItems: js.Array[js.Object], // TODO.
+  selectedIndex: Option[Int] = None,
+  openRight: Boolean = false,
+
+  onNavOpen: Option[(SyntheticEvent[Node], Int, js.Object /* MenuItems */) => _] = None,
+  onNavClose: Option[js.Function0[Unit]] = None,
+  onChange: Option[js.Function0[Unit]] = None,
 
   ref: Option[String] = None,
   style: Option[js.Object] = None)
@@ -168,26 +388,7 @@ case class Dialog(
 //  ref: Option[String] = None,
 //  closeOnMenuItemClick: Option[Boolean] = None)
 
-//√
-trait LeftNavM extends TopNode {
-  def close(): Unit = js.native
-  def toggle(): Unit = js.native
-}
 
-case class LeftNav(
-  docked: Boolean = true,
-  header: Option[String] = None,
-  menuItems: js.Array[js.Object], // TODO.
-  selectedIndex: Option[Int] = None,
-  openRight: Boolean = false,
-
-  onNavOpen: Option[(SyntheticEvent[Node], Int, js.Object /* MenuItems */) => _] = None,
-  onNavClose: Option[js.Function0[Unit]] = None,
-  onChange: Option[js.Function0[Unit]] = None,
-
-  ref: Option[String] = None,
-  style: Option[js.Object] = None)
-//
 //case class Menu(
 //  selectedIndex: Int,
 //  // onToggle: js.Function[???, Unit] /*???*/,
@@ -230,23 +431,6 @@ case class LeftNav(
 //  selected: Boolean,
 //  width: String,
 //  ref: Option[String] = None)
-//
-//case class DatePicker(
-//  maxDate: js.Object,
-//  onTouchTap: SyntheticTouchEvent[Node] => _,
-//  style: Option[js.Object] = None,
-//  hideToolbarYearChange: Boolean,
-//  minDate: js.Object,
-//  defaultDate: js.Object,
-//  // onShow: js.Function[???, Unit] /*???*/,
-//  // onDismiss: js.Function[???, Unit] /*???*/,
-//  // onChange: js.Function[???, Unit] /*???*/,
-//  // shouldDisableDate: js.Function[???, Unit] /*???*/,
-//  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
-//  ref: Option[String] = None,
-//  autoOk: Option[Boolean] = None,
-//  // formatDate: Option[js.Function[???, Unit] /*???*/] = None,
-//  showYearSelector: Option[Boolean] = None)
 
 //case class TimePicker(
 //  onTouchTap: SyntheticTouchEvent[Node] => _,
@@ -257,21 +441,6 @@ case class LeftNav(
 //  style: Option[js.Object] = None,
 //  ref: Option[String] = None,
 //  defaultTime: Option[js.Object] = None)
-
-case class Toggle(
-  elementStyle: js.Object,
-  // onToggle: js.Function[???, Unit] /*???*/,
-  toggled: Boolean,
-  style: Option[js.Object] = None,
-  ref: Option[String] = None,
-  defaultToggled: Boolean)
-
-case class RadioButtonGroup(
-  valueSelected: String,
-  defaultSelected: String,
-  name: String,
-  // onChange: js.Function[???, Unit] /*???*/
-  ref: Option[String] = None)
 
 //case class Slider(
 //  // onDragStop: js.Function[???, Unit] /*???*/,
@@ -290,12 +459,6 @@ case class RadioButtonGroup(
 //  disabled: Option[Boolean] = None,
 //  max: Option[Int] = None)
 
-case class Checkbox(
-  // onCheck: js.Function[???, Unit] /*???*/,
-  style: Option[js.Object] = None,
-  iconStyle: js.Object,
-  ref: Option[String] = None)
-
 //case class Tooltip(
 //  touch: Boolean,
 //  show: Boolean,
@@ -303,33 +466,6 @@ case class Checkbox(
 //  label: String,
 //  className: String,
 //  ref: Option[String] = None)
-
-//case class EnhancedButton(
-//  ref: Option[String] = None,
-//  touchRippleColor: String,
-//  disabled: Boolean,
-//  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
-//  onMouseOver: SyntheticMouseEvent[Node] => _,
-//  centerRipple: Boolean,
-//  disableFocusRipple: Boolean,
-//  onTouchTap: SyntheticTouchEvent[Node] => _,
-//  style: Option[js.Object] = None,
-//  disableTouchRipple: Boolean,
-//  linkButton: Boolean,
-//  onKeyboardFocus: Option[SyntheticFocusEvent[Node] => _] = None,
-//  focusRippleOpacity: Int,
-//  className: String,
-//  touchRippleOpacity: Int,
-//  onMouseOut: SyntheticMouseEvent[Node] => _,
-//  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
-//  focusRippleColor: String,
-//  keyboardFocused: Boolean)
-
-case class RadioButton(
-  ref: Option[String] = None,
-  // onCheck: js.Function[???, Unit] /*???*/,
-  style: Option[js.Object] = None,
-  iconStyle: js.Object)
 
 //case class Tabs(
 //  ref: Option[String] = None,
@@ -373,36 +509,6 @@ case class RadioButton(
 //  zDepth: Option[Int] = None
 //  // title: Option[/*??? 'node*/] = None
 //  )
-
-//√
-trait TextFieldM extends TopNode {
-  def blur(): Unit = js.native
-  def clearValue(): Unit = js.native
-  def focus(): Unit = js.native
-  def getValue(): String = js.native
-  def setValue(value: String): Unit = js.native
-  def setErrorText(error: String): Unit = js.native
-}
-
-//√
-case class TextField(
-  errorText: Option[String] = None,
-  floatingLabelText: Option[String] = None,
-  hintText: Option[String] = None,
-  multiLine: Boolean = false,
-
-  // REVIEW: look into passing all react input props
-  `type`: Option[String] = None,
-  id: String,
-
-  onChange: Option[SyntheticEvent[Node] => _] = None,
-  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
-  onKeyDown: Option[SyntheticKeyboardEvent[Node] => _] = None,
-  onEnterKeyDown: Option[SyntheticKeyboardEvent[Node] => _] = None,
-  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
-
-  ref: Option[String] = None,
-  style: Option[js.Object] = None)
 
 //case class CircularProgress(
 //  ref: Option[String] = None,
