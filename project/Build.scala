@@ -10,7 +10,7 @@ object Mui extends Build {
 
     val reactV = "0.13.3"
 
-    val muiV = "0.8.0"
+    val muiV = "0.9.0"
 
     val commonSettings = Seq(
         organization := "wav.web.wrappers",
