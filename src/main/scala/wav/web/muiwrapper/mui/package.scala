@@ -30,10 +30,11 @@ package object mui {
   //    lazy val toJs = JS[BeforeAfterWrapper](props)
   //  }
   //
-    implicit class CheckboxB(protected val props: Checkbox)(implicit protected val u: MuiUniverse) extends ComponentB {
-      val component = u.mui.Checkbox
-      lazy val toJs = JS[Checkbox](props)
-    }
+  implicit class CheckboxB(protected val props: Checkbox)(implicit protected val u: MuiUniverse) extends ComponentB {
+    val component = u.mui.Checkbox
+    lazy val toJs = JS[Checkbox](props)
+  }
+
   //
   //  implicit class CircularProgressB(protected val props: CircularProgress)(implicit protected val u: MuiUniverse) extends ComponentB {
   //    val component = u.mui.CircularProgress
@@ -45,10 +46,10 @@ package object mui {
   //    lazy val toJs = JS[ClearFix](props)
   //  }
 
-    implicit class DatePickerB(protected val props: DatePicker)(implicit protected val u: MuiUniverse) extends ComponentB {
-      val component = u.mui.DatePicker
-      lazy val toJs = JS[DatePicker](props)
-    }
+  implicit class DatePickerB(protected val props: DatePicker)(implicit protected val u: MuiUniverse) extends ComponentB {
+    val component = u.mui.DatePicker
+    lazy val toJs = JS[DatePicker](props)
+  }
 
   implicit class DialogB(protected val props: Dialog)(implicit protected val u: MuiUniverse) extends ComponentB {
     val component = u.mui.Dialog
@@ -70,10 +71,10 @@ package object mui {
     lazy val toJs = JS[FlatButton](props)
   }
 
-    implicit class FloatingActionButtonB(protected val props: FloatingActionButton)(implicit protected val u: MuiUniverse) extends ComponentB {
-      val component = u.mui.FloatingActionButton
-      lazy val toJs = JS[FloatingActionButton](props)
-    }
+  implicit class FloatingActionButtonB(protected val props: FloatingActionButton)(implicit protected val u: MuiUniverse) extends ComponentB {
+    val component = u.mui.FloatingActionButton
+    lazy val toJs = JS[FloatingActionButton](props)
+  }
 
   implicit class FontIconB(protected val props: FontIcon)(implicit protected val u: MuiUniverse) extends ComponentB {
     val component = u.mui.FontIcon
@@ -125,26 +126,21 @@ package object mui {
     lazy val toJs = JS[RaisedButton](props)
   }
 
-  //
-  //  implicit class SliderB(protected val props: Slider)(implicit protected val u: MuiUniverse) extends ComponentB {
-  //    val component = u.mui.Slider
-  //    lazy val toJs = JS[Slider](props)
-  //  }
+  implicit class SliderB(protected val props: Slider)(implicit protected val u: MuiUniverse) extends ComponentB {
+    val component = u.mui.Slider
+    lazy val toJs = JS[Slider](props)
+  }
 
   implicit class SvgIconB(protected val props: SvgIcon)(implicit protected val u: MuiUniverse) extends ComponentB {
     val component = u.mui.SvgIcon
     lazy val toJs = JS[SvgIcon](props)
   }
 
-  //  implicit class StylesB(protected val props: Styles)(implicit protected val u: MuiUniverse) extends ComponentB {
-  //    val component = u.mui.Styles
-  //    lazy val toJs = JS[Styles](props)
-  //  }
-  //
-  //  implicit class SnackbarB(protected val props: Snackbar)(implicit protected val u: MuiUniverse) extends ComponentB {
-  //    val component = u.mui.Snackbar
-  //    lazy val toJs = JS[Snackbar](props)
-  //  }
+  implicit class SnackbarB(protected val props: Snackbar)(implicit protected val u: MuiUniverse) extends ComponentB {
+    val component = u.mui.Snackbar
+    lazy val toJs = JS[Snackbar](props)
+  }
+
   //
   //  implicit class TabB(protected val props: Tab)(implicit protected val u: MuiUniverse) extends ComponentB {
   //    val component = u.mui.Tab
@@ -161,16 +157,11 @@ package object mui {
     lazy val toJs = JS[Toggle](props)
   }
 
-  //
-  //  implicit class TimePickerB(protected val props: TimePicker)(implicit protected val u: MuiUniverse) extends ComponentB {
-  //    val component = u.mui.TimePicker
-  //    lazy val toJs = JS[TimePicker](props)
-  //  }
+  implicit class TextFieldB(protected val props: TextField)(implicit protected val u: MuiUniverse) extends ComponentB {
+    val component = u.mui.TextField
+    lazy val toJs = JS[TextField](props)
+  }
 
-    implicit class TextFieldB(protected val props: TextField)(implicit protected val u: MuiUniverse) extends ComponentB {
-      val component = u.mui.TextField
-      lazy val toJs = JS[TextField](props)
-    }
   //
   //  implicit class ToolbarB(protected val props: Toolbar)(implicit protected val u: MuiUniverse) extends ComponentB {
   //    val component = u.mui.Toolbar
@@ -192,15 +183,9 @@ package object mui {
   //    lazy val toJs = JS[ToolbarTitle](props)
   //  }
   //
-  //  implicit class TooltipB(protected val props: Tooltip)(implicit protected val u: MuiUniverse) extends ComponentB {
-  //    val component = u.mui.Tooltip
-  //    lazy val toJs = JS[Tooltip](props)
-  //  }
-  //
-  //  implicit class UtilsB(protected val props: Utils)(implicit protected val u: MuiUniverse) extends ComponentB {
-  //    val component = u.mui.Utils
-  //    lazy val toJs = JS[Utils](props)
-  //  }
-
+  implicit class TooltipB(protected val props: Tooltip)(implicit protected val u: MuiUniverse) extends ComponentB {
+    val component = u.mui.Tooltip
+    lazy val toJs = JS[Tooltip](props)
+  }
 
 }

@@ -13,6 +13,7 @@ case class Paper(
   transitionEnabled: Boolean = true,
   zDepth: Int = 1,
 
+  // react
   ref: Option[String] = None,
   style: Option[js.Object] = None)
 
@@ -21,10 +22,15 @@ case class Paper(
 //√
 trait TextFieldM extends TopNode {
   def blur(): Unit = js.native
+
   def clearValue(): Unit = js.native
+
   def focus(): Unit = js.native
+
   def getValue(): String = js.native
+
   def setValue(value: String): Unit = js.native
+
   def setErrorText(error: String): Unit = js.native
 }
 
@@ -36,18 +42,17 @@ case class TextField(
   multiLine: Boolean = false,
   rows: Int = 1,
 
-  // REVIEW: look into passing all react input props
+  onChange: Option[SyntheticEvent[Node] => _] = None,
+  onKeyDown: Option[SyntheticKeyboardEvent[Node] => _] = None,
+  onEnterKeyDown: Option[SyntheticKeyboardEvent[Node] => _] = None,
+
+  // react
   `type`: Option[String] = None,
   id: Option[String] = None,
   value: Option[String] = None,
   defaultValue: Option[String] = None,
-
-  onChange: Option[SyntheticEvent[Node] => _] = None,
-  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
-  onKeyDown: Option[SyntheticKeyboardEvent[Node] => _] = None,
-  onEnterKeyDown: Option[SyntheticKeyboardEvent[Node] => _] = None,
   onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
-
+  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
   ref: Option[String] = None,
   style: Option[js.Object] = None)
 
@@ -58,12 +63,15 @@ case class FontIcon(
   className: String,
   hoverColor: Option[String] = None,
 
+  // react
   style: Option[js.Object] = None,
   ref: Option[String] = None)
 
 //√
 case class SvgIcon(
   viewBox: Option[String] = None,
+
+  // react
   ref: Option[String] = None,
   style: Option[js.Object] = None)
 
@@ -97,7 +105,6 @@ trait EnhancedButtonM extends TopNode {
 //√
 case class IconButton(
   className: Option[String] = None,
-  disabled: Boolean = false,
   iconClassName: Option[String] = None,
   iconStyle: Option[js.Object] = None,
   linkButton: Boolean = false,
@@ -105,12 +112,14 @@ case class IconButton(
   tooltip: Option[String] = None,
   touch: Boolean = false,
 
-  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
-  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
   onMouseOut: Option[SyntheticMouseEvent[Node] => _] = None,
-  onTouchTap:  Option[SyntheticTouchEvent[Node] => _] = None,
+  onTouchTap: Option[SyntheticTouchEvent[Node] => _] = None,
   onMouseOver: Option[SyntheticMouseEvent[Node] => _] = None,
 
+  // react
+  disabled: Boolean = false,
+  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
+  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
   ref: Option[String] = None,
   style: Option[js.Object] = None)
 
@@ -121,19 +130,20 @@ case class FlatButton(
   iconClassName: Option[js.Object] = None,
   iconStyle: Option[js.Object] = None,
   mini: Boolean = true,
-  disabled: Boolean = false,
   primary: Boolean = false,
   secondary: Boolean = false,
   linkButton: Boolean = false,
   rippleColor: Option[String] = None,
   hoverColor: Option[String] = None,
 
-  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
-  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
-  onTouchTap:  Option[SyntheticTouchEvent[Node] => _] = None,
+  onTouchTap: Option[SyntheticTouchEvent[Node] => _] = None,
   onMouseOver: Option[SyntheticMouseEvent[Node] => _] = None,
   onMouseOut: Option[SyntheticMouseEvent[Node] => _] = None,
 
+  // react
+  disabled: Boolean = false,
+  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
+  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
   ref: Option[String] = None,
   style: Option[js.Object] = None)
 
@@ -145,16 +155,17 @@ case class RaisedButton(
   iconStyle: Option[js.Object] = None,
   linkButton: Boolean = false,
   mini: Boolean = true,
-  disabled: Boolean = false,
   primary: Boolean = false,
   secondary: Boolean = false,
 
-  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
-  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
-  onTouchTap:  Option[SyntheticTouchEvent[Node] => _] = None,
+  onTouchTap: Option[SyntheticTouchEvent[Node] => _] = None,
   onMouseOver: Option[SyntheticMouseEvent[Node] => _] = None,
   onMouseOut: Option[SyntheticMouseEvent[Node] => _] = None,
 
+  // react
+  disabled: Boolean = false,
+  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
+  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
   ref: Option[String] = None,
   style: Option[js.Object] = None)
 
@@ -164,15 +175,16 @@ case class FloatingActionButton(
   linkButton: Boolean = false,
   mini: Boolean = true,
   labelStyle: Option[js.Object] = None,
-  disabled: Boolean = false,
   secondary: Boolean = false,
 
-  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
-  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
-  onTouchTap:  Option[SyntheticTouchEvent[Node] => _] = None,
+  onTouchTap: Option[SyntheticTouchEvent[Node] => _] = None,
   onMouseOver: Option[SyntheticMouseEvent[Node] => _] = None,
   onMouseOut: Option[SyntheticMouseEvent[Node] => _] = None,
 
+  // react
+  disabled: Boolean = false,
+  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
+  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
   ref: Option[String] = None,
   style: Option[js.Object] = None)
 
@@ -184,14 +196,18 @@ object EnhancedSwitch {
 
 trait EnhancedSwitchM extends TopNode {
   def isSwitched(): Boolean = js.native
+
   def setSwitched(switched: Boolean): Unit = js.native
+
   def getValue(): Boolean = js.native
+
   def isKeyboardFocused(): Boolean = js.native
 }
 
 
 trait CheckboxM extends EnhancedSwitchM {
   def isChecked(): Boolean = js.native
+
   def setChecked(checked: Boolean): Unit = js.native
 }
 
@@ -208,15 +224,16 @@ case class Checkbox(
 
   onCheck: Option[EnhancedSwitch.OnChange] = None,
 
+  // react
   name: Option[String] = None,
   value: Option[String] = None,
-
   style: Option[js.Object] = None,
   ref: Option[String] = None)
 
 
 trait RadioButtonM extends EnhancedSwitchM {
   def isChecked(): Boolean = js.native
+
   def setChecked(checked: Boolean): Unit = js.native
 }
 
@@ -232,7 +249,9 @@ case class RadioButton(
 
 trait RadioButtonGroupM extends TopNode {
   def getSelectedValue(): js.UndefOr[String] = js.native
+
   def setSelectedValue(value: String): Unit = js.native
+
   def clearValue(): Unit = js.native
 }
 
@@ -248,6 +267,7 @@ case class RadioButtonGroup(
 
 trait ToggleM extends TopNode {
   def isToggled(): Boolean = js.native
+
   def setToggled(toggled: Boolean): Unit = js.native
 }
 
@@ -259,9 +279,9 @@ case class Toggle(
 
   onToggle: Option[EnhancedSwitch.OnChange] = None,
 
+  // react
   name: Option[String] = None,
   value: Option[String] = None,
-
   style: Option[js.Object] = None,
   ref: Option[String] = None)
 
@@ -274,6 +294,7 @@ case class MenuAction(text: String, onClick: () => _) {
 //√
 trait DialogM extends TopNode {
   def show(): Unit = js.native
+
   def dismiss(): Unit = js.native
 }
 
@@ -293,23 +314,27 @@ case class Dialog(
   onDismiss: Option[() => _] = None,
   onClickAway: Option[() => _] = None,
 
+  // react
   ref: Option[String] = None,
   style: Option[js.Object] = None)
 
 object DatePicker {
+
   object Mode extends Enumeration {
     val portrait = Value
     val landscape = Value
   }
+
 }
 
 trait DatePickerM extends DialogM {
   def getDate(): js.Date = js.native
+
   def setDate(d: js.Date): Unit = js.native
 }
 
 case class DatePicker(
-  mode: Option[DatePicker.Mode.Value] = None,
+  mode: DatePicker.Mode.Value = DatePicker.Mode.portrait,
   initialDate: Option[js.Date] = None,
   formatDate: Option[String] = None,
   minDate: Option[js.Date] = None,
@@ -334,13 +359,17 @@ case class DatePicker(
   onDismiss: Option[() => _] = None,
   onClickAway: Option[() => _] = None,
 
+  // react
   ref: Option[String] = None,
   style: Option[js.Object] = None)
+
+// Menus
 
 
 //√
 trait LeftNavM extends TopNode {
   def close(): Unit = js.native
+
   def toggle(): Unit = js.native
 }
 
@@ -351,14 +380,13 @@ case class LeftNav(
   selectedIndex: Option[Int] = None,
   openRight: Boolean = false,
 
-  onNavOpen: Option[(SyntheticEvent[Node], Int, js.Object /* MenuItems */) => _] = None,
+  onNavOpen: Option[(SyntheticEvent[Node], Int, js.Object /* MenuItems */ ) => _] = None,
   onNavClose: Option[js.Function0[Unit]] = None,
   onChange: Option[js.Function0[Unit]] = None,
 
+  // react
   ref: Option[String] = None,
   style: Option[js.Object] = None)
-
-// Menus
 
 //case class MenuItem(
 //  // onToggle: js.Function[???, Unit] /*???*/,
@@ -408,13 +436,6 @@ case class LeftNav(
 //  hideable: Option[Boolean] = None,
 //  visible: Option[Boolean] = None)
 
-//
-//case class ToolbarGroup(
-//  className: String,
-//  style: Option[js.Object] = None,
-//  ref: Option[String] = None,
-//  float: Option[String] = None)
-//
 //case class DropDownMenu(
 //  selectedIndex: Int,
 //  // menuItems: Array[???],
@@ -424,77 +445,55 @@ case class LeftNav(
 //  className: String,
 //  ref: Option[String] = None,
 //  autoWidth: Option[Boolean] = None)
-//
-//case class Tab(
-//  handleTouchTap: SyntheticTouchEvent[Node] => _,
-//  style: Option[js.Object] = None,
-//  selected: Boolean,
-//  width: String,
-//  ref: Option[String] = None)
 
-//case class TimePicker(
-//  onTouchTap: SyntheticTouchEvent[Node] => _,
-//  // onShow: js.Function[???, Unit] /*???*/,
-//  // onDismiss: js.Function[???, Unit] /*???*/,
-//  // onChange: js.Function[???, Unit] /*???*/,
-//  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
-//  style: Option[js.Object] = None,
-//  ref: Option[String] = None,
-//  defaultTime: Option[js.Object] = None)
+// Other
 
-//case class Slider(
-//  // onDragStop: js.Function[???, Unit] /*???*/,
-//  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
-//  error: String,
-//  description: String,
-//  // onChange: js.Function[???, Unit] /*???*/,
-//  onDragStart: SyntheticMouseEvent[Node] => _,
-//  name: String,
-//  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
-//  step: Int,
-//  style: Option[js.Object] = None,
-//  ref: Option[String] = None,
-//  required: Option[Boolean] = None,
-//  min: Option[Int] = None,
-//  disabled: Option[Boolean] = None,
-//  max: Option[Int] = None)
+trait Position extends js.Object { // Draggable
+  val top: Int = js.native
+  val left: Int = js.native
+}
 
-//case class Tooltip(
-//  touch: Boolean,
-//  show: Boolean,
-//  style: Option[js.Object] = None,
-//  label: String,
-//  className: String,
-//  ref: Option[String] = None)
+case class Slider(
+  name: String,
+  min: Double = 0,
+  max: Double = 1,
+  step: Option[Double] = None,
+  error: Option[String] = None,
+  description: Option[String] = None,
+  dragging: Boolean = false,
 
-//case class Tabs(
-//  ref: Option[String] = None,
-//  tabWidth: Int,
-//  style: Option[js.Object] = None,
-//  initialSelectedIndex: Int
-//  // onActive: js.Function[???, Unit] /*???*/
-//  )
+  onChange: Option[(SyntheticFocusEvent[Node], Double) => _] = None,
 
+  // react
+  defaultValue: Double = 0,
+  required: Boolean = true,
+  disabled: Boolean = false,
+  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
+  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
+  ref: Option[String] = None,
+  style: Option[js.Object] = None)
 
+case class Tooltip(
+  label: String,
+  className: Option[String] = None,
+  touch: Boolean = false,
+  show: Boolean = false,
 
-//case class ToolbarTitle(
-//  ref: Option[String] = None,
-//  text: String,
-//  style: Option[js.Object] = None)
-//
-//case class Toolbar(
-//  ref: Option[String] = None,
-//  className: String,
-//  style: Option[js.Object] = None)
-//
-//case class Snackbar(
-//  ref: Option[String] = None,
-//  message: String,
-//  style: Option[js.Object] = None,
-//  onActionTouchTap: SyntheticTouchEvent[Node] => _,
-//  openOnMount: Boolean,
-//  action: String)
-//
+  // react
+  ref: Option[String] = None,
+  style: Option[js.Object] = None)
+
+case class Snackbar(
+  message: String,
+
+  action: Option[String] = None,
+  onActionTouchTap: Option[SyntheticTouchEvent[Node] => _] = None,
+  openOnMount: Boolean = false,
+
+  // react
+  ref: Option[String] = None,
+  style: Option[js.Object] = None)
+
 //case class AppBar(
 //  ref: Option[String] = None,
 //  iconClassNameRight: String,
@@ -510,13 +509,39 @@ case class LeftNav(
 //  // title: Option[/*??? 'node*/] = None
 //  )
 
-//case class CircularProgress(
-//  ref: Option[String] = None,
+//
+//case class Tab(
+//  handleTouchTap: SyntheticTouchEvent[Node] => _,
 //  style: Option[js.Object] = None,
-//  size: Option[Int] = None,
-//  min: Option[Int] = None,
-//  value: Option[Int] = None,
-//  max: Option[Int] = None)
+//  selected: Boolean,
+//  width: String,
+//  ref: Option[String] = None)
+
+//case class Tabs(
+//  ref: Option[String] = None,
+//  tabWidth: Int,
+//  style: Option[js.Object] = None,
+//  initialSelectedIndex: Int
+//  // onActive: js.Function[???, Unit] /*???*/
+//  )
+
+//case class ToolbarTitle(
+//  ref: Option[String] = None,
+//  text: String,
+//  style: Option[js.Object] = None)
+//
+//case class Toolbar(
+//  ref: Option[String] = None,
+//  className: String,
+//  style: Option[js.Object] = None)
+
+//
+//case class ToolbarGroup(
+//  className: String,
+//  style: Option[js.Object] = None,
+//  ref: Option[String] = None,
+//  float: Option[String] = None)
+//
 //
 //case class ToolbarSeparator(
 //  ref: Option[String] = None,
@@ -537,3 +562,11 @@ case class LeftNav(
 //  max: Option[Int] = None,
 //  min: Option[Int] = None,
 //  value: Option[Int] = None)
+
+//case class CircularProgress(
+//  ref: Option[String] = None,
+//  style: Option[js.Object] = None,
+//  size: Option[Int] = None,
+//  min: Option[Int] = None,
+//  value: Option[Int] = None,
+//  max: Option[Int] = None)
