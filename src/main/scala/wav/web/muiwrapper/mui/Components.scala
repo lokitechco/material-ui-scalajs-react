@@ -6,6 +6,10 @@ import org.scalajs.dom.Node
 
 import scala.scalajs.js
 
+case class Action(text: String, onClick: () => _) {
+  val toJs = JS[Action].apply(this)
+}
+
 //√
 case class Paper(
   circle: Boolean = false,
@@ -98,6 +102,7 @@ case class SvgIcon(
 //  focusRippleColor: String,
 //  keyboardFocused: Boolean)
 
+//√
 trait EnhancedButtonM extends TopNode {
   def isKeyboardFocused(): Boolean = js.native
 }
@@ -169,6 +174,7 @@ case class RaisedButton(
   ref: Option[String] = None,
   style: Option[js.Object] = None)
 
+//√
 case class FloatingActionButton(
   iconClassName: Option[js.Object] = None,
   iconStyle: Option[js.Object] = None,
@@ -204,7 +210,7 @@ trait EnhancedSwitchM extends TopNode {
   def isKeyboardFocused(): Boolean = js.native
 }
 
-
+//√
 trait CheckboxM extends EnhancedSwitchM {
   def isChecked(): Boolean = js.native
 
@@ -216,6 +222,7 @@ object HorizontalPosition extends Enumeration {
   val right = Value
 }
 
+//√
 case class Checkbox(
   label: Option[String] = None,
   labelPosition: HorizontalPosition.Value = HorizontalPosition.right,
@@ -237,6 +244,7 @@ trait RadioButtonM extends EnhancedSwitchM {
   def setChecked(checked: Boolean): Unit = js.native
 }
 
+//√
 case class RadioButton(
   label: Option[String] = None,
   labelPosition: HorizontalPosition.Value = HorizontalPosition.right,
@@ -255,6 +263,7 @@ trait RadioButtonGroupM extends TopNode {
   def clearValue(): Unit = js.native
 }
 
+//√
 case class RadioButtonGroup(
   name: String,
 
@@ -271,6 +280,7 @@ trait ToggleM extends TopNode {
   def setToggled(toggled: Boolean): Unit = js.native
 }
 
+//√
 case class Toggle(
   defaultToggled: Boolean = false,
   elementStyle: Option[js.Object] = None,
@@ -285,11 +295,7 @@ case class Toggle(
   style: Option[js.Object] = None,
   ref: Option[String] = None)
 
-// Menus
-
-case class MenuAction(text: String, onClick: () => _) {
-  val toJs = JS[MenuAction].apply(this)
-}
+// Dialogs
 
 //√
 trait DialogM extends TopNode {
@@ -300,7 +306,7 @@ trait DialogM extends TopNode {
 
 //√
 case class Dialog(
-  actions: Option[js.Array[MenuAction]] = None,
+  actions: Array[Action] = Array.empty,
   actionFocus: Option[String] = None,
   contentClassName: Option[String] = None,
   contentInnerStyle: Option[js.Object] = None,
@@ -344,7 +350,7 @@ case class DatePicker(
   showYearSelector: Boolean = false,
   autoOk: Boolean = false,
 
-  actions: Option[js.Array[MenuAction]] = None,
+  actions: Array[Action] = Array.empty,
   actionFocus: Option[String] = None,
   contentClassName: Option[String] = None,
   contentInnerStyle: Option[js.Object] = None,
@@ -365,6 +371,77 @@ case class DatePicker(
 
 // Menus
 
+object Menu {
+  trait Item {
+    val toJs: js.Object
+  }
+  object Types extends Enumeration {
+    val LINK = Value
+    val SUBHEADER = Value
+    val NESTED = Value
+  }
+}
+
+//√
+case class Menu(
+  text: String,
+  menuItems: Array[Menu.Item],
+
+  `type`: Menu.Types.Value = Menu.Types.LINK,
+  autoWidth: Boolean = true,
+  hidable: Boolean = false,
+  visible: Boolean = false,
+  zDepth: Int = 1,
+
+  menuItemClassName: Option[String] = None,
+  menuItemClassNameSubheader: Option[String] = None,
+  menuItemClassNameLink: Option[String] = None,
+  menuItemStyle: Option[js.Object] = None,
+  menuItemStyleSubheader: Option[js.Object] = None,
+  menuItemStyleLink: Option[js.Object] = None,
+  selectedIndex: Int = 0,
+
+  onItemTap: Option[(SyntheticEvent[Node], Int, MenuItemM) => _] = None,
+  onToggle: Option[(SyntheticEvent[Node], Int, Boolean) => _] = None, // how do you know what item was toggled? event.target?
+
+  // react
+  ref: Option[String] = None,
+  style: Option[js.Object] = None) extends Menu.Item {
+  val toJs: js.Object = JS[Menu](this)
+}
+
+trait MenuItemM extends js.Object {
+  val payload: String = js.native
+  val attribute: js.UndefOr[String] = js.native
+  val data: js.UndefOr[String] = js.native
+  val number: js.UndefOr[Double] = js.native
+}
+
+// √
+case class MenuItem(
+  text: String,
+  payload: String,
+  attribute: Option[String] = None,
+  data: Option[String] = None,
+  number: Option[Double] = None,
+  toggle: Boolean = false,
+  `type`: Menu.Types.Value = Menu.Types.LINK,
+
+  className: Option[String] = None,
+  iconClassName: Option[String] = None,
+  iconStyle: Option[js.Object] = None,
+  iconRightClassName: Option[String] = None,
+  iconRightStyle: Option[String] = None,
+
+  onTouchTap: Option[(SyntheticEvent[Node], Int, MenuItemM) => _] = None,
+  onToggle: Option[(SyntheticEvent[Node], Int, Boolean) => _] = None, // how do you know what item was toggled? event.target?
+
+  // react
+  disabled: Boolean = false,
+  ref: Option[String] = None,
+  style: Option[js.Object] = None) extends Menu.Item {
+  lazy val toJs: js.Object = JS[MenuItem](this)
+}
 
 //√
 trait LeftNavM extends TopNode {
@@ -376,7 +453,7 @@ trait LeftNavM extends TopNode {
 case class LeftNav(
   docked: Boolean = true,
   header: Option[String] = None,
-  menuItems: js.Array[js.Object], // TODO.
+  menuItems: Array[MenuItem],
   selectedIndex: Option[Int] = None,
   openRight: Boolean = false,
 
@@ -386,69 +463,27 @@ case class LeftNav(
 
   // react
   ref: Option[String] = None,
-  style: Option[js.Object] = None)
+  style: Option[js.Object] = None) {
+  lazy val toJs: js.Object = JS[LeftNav](this)
+}
 
-//case class MenuItem(
-//  // onToggle: js.Function[???, Unit] /*???*/,
-//  attribute: String,
-//  number: String,
-//  onTouchTap: SyntheticTouchEvent[Node] => _,
-//  style: Option[js.Object] = None,
-//  selected: Boolean,
-//  iconClassName: String,
-//  index: Int,
-//  iconRightStyle: js.Object,
-//  onClick: SyntheticMouseEvent[Node] => _,
-//  data: String,
-//  className: String,
-//  iconRightClassName: String,
-//  iconStyle: js.Object,
-//  ref: Option[String] = None,
-//  toggle: Option[Boolean] = None,
-//  disabled: Option[Boolean] = None)
+case class DropDownMenu(
+  menuItems: Array[Menu.Item],
+  menuItemStyle: Option[js.Object] = None, // the docs say array ?!?
+  autoWidth: Option[Boolean] = None,
+  selectedIndex: Int = 0,
 
-//case class DropDownIcon(
-//  // menuItems: Array[???],
-//  style: Option[js.Object] = None,
-//  iconClassName: String,
-//  // onChange: js.Function[???, Unit] /*???*/,
-//  iconStyle: js.Object,
-//  ref: Option[String] = None,
-//  closeOnMenuItemClick: Option[Boolean] = None)
+  onChangeTap: Option[(SyntheticEvent[Node], Int, MenuItemM) => _] = None,
 
-
-//case class Menu(
-//  selectedIndex: Int,
-//  // onToggle: js.Function[???, Unit] /*???*/,
-//  // menuItems: Array[???],
-//  menuItemStyleSubheader: js.Object,
-//  menuItemStyle: js.Object,
-//  style: Option[js.Object] = None,
-//  menuItemClassNameLink: String,
-//  menuItemClassNameSubheader: String,
-//  menuItemClassName: String,
-//  onItemClick: SyntheticMouseEvent[Node] => _,
-//  // onItemTap: js.Function[???, Unit] /*???*/,
-//  menuItemStyleLink: js.Object,
-//  ref: Option[String] = None,
-//  autoWidth: Option[Boolean] = None,
-//  zDepth: Option[Int] = None,
-//  hideable: Option[Boolean] = None,
-//  visible: Option[Boolean] = None)
-
-//case class DropDownMenu(
-//  selectedIndex: Int,
-//  // menuItems: Array[???],
-//  menuItemStyle: js.Object,
-//  style: Option[js.Object] = None,
-//  // onChange: js.Function[???, Unit] /*???*/,
-//  className: String,
-//  ref: Option[String] = None,
-//  autoWidth: Option[Boolean] = None)
+  ref: Option[String] = None,
+  style: Option[js.Object] = None) {
+  lazy val toJs: js.Object = JS[DropDownMenu](this)
+}
 
 // Other
 
-trait Position extends js.Object { // Draggable
+// from Draggable
+trait Position extends js.Object {
   val top: Int = js.native
   val left: Int = js.native
 }

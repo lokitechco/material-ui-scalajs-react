@@ -24,11 +24,8 @@ class Sampler(id: String, route: String) {
         ref = mainRef,
         menuItems = router.routes.map { r =>
           val (id, link) = r
-          (js.Dynamic.literal(
-            "text" -> id,
-            "type" -> Mui.MenuItem.Types.LINK,
-            "payload" -> link): js.Object)
-        }.toJsArray)()
+          MenuItem(text = id, payload = link)
+        }.toArray)()
     )).hackSpec(installMuiContext)
 
   private lazy val IconSample = SimpleB("Icon")

@@ -44,7 +44,7 @@ object Mui extends Build {
       .settings(
         resourceGenerators in Compile <+= muiSources,
         libraryDependencies ++= Seq(
-          "wav.common" %% "scala-macros" % "0.1.0"
+          "wav.common" %% "scala-macros" % "0.1.1"
         //  "com.github.japgolly.scalajs-react" %%% "core" % "0.9.0"
         ))
 
