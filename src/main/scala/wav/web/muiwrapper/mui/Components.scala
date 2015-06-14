@@ -3,10 +3,11 @@ package wav.web.muiwrapper.mui
 import wav.common.scalajs.macros.JS
 import japgolly.scalajs.react._
 import org.scalajs.dom.Node
+import wav.web.muiwrapper.{Mui, Props}
 
 import scala.scalajs.js
 
-case class Action(text: String, onClick: () => _) {
+case class Action(text: String, onClick: () => Unit) {
   val toJs = JS[Action].apply(this)
 }
 
@@ -19,7 +20,10 @@ case class Paper(
 
   // react
   ref: Option[String] = None,
-  style: Option[js.Object] = None)
+  style: Option[js.Object] = None) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.Paper
+  val toJs = JS[Paper](this)
+}
 
 // Text
 
@@ -46,19 +50,22 @@ case class TextField(
   multiLine: Boolean = false,
   rows: Int = 1,
 
-  onChange: Option[SyntheticEvent[Node] => _] = None,
-  onKeyDown: Option[SyntheticKeyboardEvent[Node] => _] = None,
-  onEnterKeyDown: Option[SyntheticKeyboardEvent[Node] => _] = None,
+  onChange: Option[SyntheticEvent[Node] => Unit] = None,
+  onKeyDown: Option[SyntheticKeyboardEvent[Node] => Unit] = None,
+  onEnterKeyDown: Option[SyntheticKeyboardEvent[Node] => Unit] = None,
 
   // react
   `type`: Option[String] = None,
   id: Option[String] = None,
   value: Option[String] = None,
   defaultValue: Option[String] = None,
-  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
-  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
+  onFocus: Option[SyntheticFocusEvent[Node] => Unit] = None,
+  onBlur: Option[SyntheticFocusEvent[Node] => Unit] = None,
   ref: Option[String] = None,
-  style: Option[js.Object] = None)
+  style: Option[js.Object] = None) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.TextField
+  val toJs = JS[TextField](this)
+}
 
 // Icons
 
@@ -69,7 +76,10 @@ case class FontIcon(
 
   // react
   style: Option[js.Object] = None,
-  ref: Option[String] = None)
+  ref: Option[String] = None) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.FontIcon
+  val toJs = JS[FontIcon](this)
+}
 
 //√
 case class SvgIcon(
@@ -77,7 +87,10 @@ case class SvgIcon(
 
   // react
   ref: Option[String] = None,
-  style: Option[js.Object] = None)
+  style: Option[js.Object] = None) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.SvgIcon
+  val toJs = JS[SvgIcon](this)
+}
 
 // Buttons (EnhancedButton)
 
@@ -85,20 +98,20 @@ case class SvgIcon(
 //  ref: Option[String] = None,
 //  touchRippleColor: String,
 //  disabled: Boolean,
-//  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
-//  onMouseOver: SyntheticMouseEvent[Node] => _,
+//  onBlur: Option[SyntheticFocusEvent[Node]=> Unit] = None,
+//  onMouseOver: SyntheticMouseEvent[Node]=> Unit,
 //  centerRipple: Boolean,
 //  disableFocusRipple: Boolean,
-//  onTouchTap: SyntheticTouchEvent[Node] => _,
+//  onTouchTap: SyntheticTouchEvent[Node]=> Unit,
 //  style: Option[js.Object] = None,
 //  disableTouchRipple: Boolean,
 //  linkButton: Boolean,
-//  onKeyboardFocus: Option[SyntheticFocusEvent[Node] => _] = None,
+//  onKeyboardFocus: Option[SyntheticFocusEvent[Node]=> Unit] = None,
 //  focusRippleOpacity: Int,
 //  className: String,
 //  touchRippleOpacity: Int,
-//  onMouseOut: SyntheticMouseEvent[Node] => _,
-//  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
+//  onMouseOut: SyntheticMouseEvent[Node]=> Unit,
+//  onFocus: Option[SyntheticFocusEvent[Node]=> Unit] = None,
 //  focusRippleColor: String,
 //  keyboardFocused: Boolean)
 
@@ -117,16 +130,19 @@ case class IconButton(
   tooltip: Option[String] = None,
   touch: Boolean = false,
 
-  onMouseOut: Option[SyntheticMouseEvent[Node] => _] = None,
-  onTouchTap: Option[SyntheticTouchEvent[Node] => _] = None,
-  onMouseOver: Option[SyntheticMouseEvent[Node] => _] = None,
+  onMouseOut: Option[SyntheticMouseEvent[Node] => Unit] = None,
+  onTouchTap: Option[SyntheticTouchEvent[Node] => Unit] = None,
+  onMouseOver: Option[SyntheticMouseEvent[Node] => Unit] = None,
 
   // react
   disabled: Boolean = false,
-  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
-  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
+  onBlur: Option[SyntheticFocusEvent[Node] => Unit] = None,
+  onFocus: Option[SyntheticFocusEvent[Node] => Unit] = None,
   ref: Option[String] = None,
-  style: Option[js.Object] = None)
+  style: Option[js.Object] = None) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.IconButton
+  val toJs = JS[IconButton](this)
+}
 
 //√
 case class FlatButton(
@@ -141,16 +157,19 @@ case class FlatButton(
   rippleColor: Option[String] = None,
   hoverColor: Option[String] = None,
 
-  onTouchTap: Option[SyntheticTouchEvent[Node] => _] = None,
-  onMouseOver: Option[SyntheticMouseEvent[Node] => _] = None,
-  onMouseOut: Option[SyntheticMouseEvent[Node] => _] = None,
+  onTouchTap: Option[SyntheticTouchEvent[Node] => Unit] = None,
+  onMouseOver: Option[SyntheticMouseEvent[Node] => Unit] = None,
+  onMouseOut: Option[SyntheticMouseEvent[Node] => Unit] = None,
 
   // react
   disabled: Boolean = false,
-  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
-  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
+  onBlur: Option[SyntheticFocusEvent[Node] => Unit] = None,
+  onFocus: Option[SyntheticFocusEvent[Node] => Unit] = None,
   ref: Option[String] = None,
-  style: Option[js.Object] = None)
+  style: Option[js.Object] = None) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.FlatButton
+  val toJs = JS[FlatButton](this)
+}
 
 //√
 case class RaisedButton(
@@ -163,16 +182,19 @@ case class RaisedButton(
   primary: Boolean = false,
   secondary: Boolean = false,
 
-  onTouchTap: Option[SyntheticTouchEvent[Node] => _] = None,
-  onMouseOver: Option[SyntheticMouseEvent[Node] => _] = None,
-  onMouseOut: Option[SyntheticMouseEvent[Node] => _] = None,
+  onTouchTap: Option[SyntheticTouchEvent[Node] => Unit] = None,
+  onMouseOver: Option[SyntheticMouseEvent[Node] => Unit] = None,
+  onMouseOut: Option[SyntheticMouseEvent[Node] => Unit] = None,
 
   // react
   disabled: Boolean = false,
-  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
-  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
+  onBlur: Option[SyntheticFocusEvent[Node] => Unit] = None,
+  onFocus: Option[SyntheticFocusEvent[Node] => Unit] = None,
   ref: Option[String] = None,
-  style: Option[js.Object] = None)
+  style: Option[js.Object] = None) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.RaisedButton
+  val toJs = JS[RaisedButton](this)
+}
 
 //√
 case class FloatingActionButton(
@@ -183,21 +205,24 @@ case class FloatingActionButton(
   labelStyle: Option[js.Object] = None,
   secondary: Boolean = false,
 
-  onTouchTap: Option[SyntheticTouchEvent[Node] => _] = None,
-  onMouseOver: Option[SyntheticMouseEvent[Node] => _] = None,
-  onMouseOut: Option[SyntheticMouseEvent[Node] => _] = None,
+  onTouchTap: Option[SyntheticTouchEvent[Node] => Unit] = None,
+  onMouseOver: Option[SyntheticMouseEvent[Node] => Unit] = None,
+  onMouseOut: Option[SyntheticMouseEvent[Node] => Unit] = None,
 
   // react
   disabled: Boolean = false,
-  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
-  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
+  onBlur: Option[SyntheticFocusEvent[Node] => Unit] = None,
+  onFocus: Option[SyntheticFocusEvent[Node] => Unit] = None,
   ref: Option[String] = None,
-  style: Option[js.Object] = None)
+  style: Option[js.Object] = None) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.FloatingActionButton
+  val toJs = JS[FloatingActionButton](this)
+}
 
 // Switches
 
 object EnhancedSwitch {
-  type OnChange = (SyntheticEvent[Node], Boolean) => _
+  type OnChange = (SyntheticEvent[Node], Boolean) => Unit
 }
 
 trait EnhancedSwitchM extends TopNode {
@@ -235,7 +260,10 @@ case class Checkbox(
   name: Option[String] = None,
   value: Option[String] = None,
   style: Option[js.Object] = None,
-  ref: Option[String] = None)
+  ref: Option[String] = None) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.Checkbox
+  val toJs = JS[Checkbox](this)
+}
 
 
 trait RadioButtonM extends EnhancedSwitchM {
@@ -253,7 +281,10 @@ case class RadioButton(
   onCheck: Option[EnhancedSwitch.OnChange] = None,
 
   ref: Option[String] = None,
-  style: Option[js.Object] = None)
+  style: Option[js.Object] = None) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.RadioButton
+  val toJs = JS[RadioButton](this)
+}
 
 trait RadioButtonGroupM extends TopNode {
   def getSelectedValue(): js.UndefOr[String] = js.native
@@ -272,7 +303,10 @@ case class RadioButtonGroup(
   labelPosition: HorizontalPosition.Value = HorizontalPosition.right,
   onChange: Option[EnhancedSwitch.OnChange] = None,
 
-  ref: Option[String] = None)
+  ref: Option[String] = None) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.RadioButtonGroup
+  val toJs = JS[RadioButtonGroup](this)
+}
 
 trait ToggleM extends TopNode {
   def isToggled(): Boolean = js.native
@@ -293,7 +327,10 @@ case class Toggle(
   name: Option[String] = None,
   value: Option[String] = None,
   style: Option[js.Object] = None,
-  ref: Option[String] = None)
+  ref: Option[String] = None) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.Toggle
+  val toJs = JS[Toggle](this)
+}
 
 // Dialogs
 
@@ -316,13 +353,16 @@ case class Dialog(
   title: Option[String] = None,
   repositionOnUpdate: Boolean = true,
 
-  onShow: Option[() => _] = None,
-  onDismiss: Option[() => _] = None,
-  onClickAway: Option[() => _] = None,
+  onShow: Option[() => Unit] = None,
+  onDismiss: Option[() => Unit] = None,
+  onClickAway: Option[() => Unit] = None,
 
   // react
   ref: Option[String] = None,
-  style: Option[js.Object] = None)
+  style: Option[js.Object] = None) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.Dialog
+  val toJs = JS[Dialog](this)
+}
 
 object DatePicker {
 
@@ -360,26 +400,32 @@ case class DatePicker(
   title: Option[String] = None,
   repositionOnUpdate: Boolean = true,
 
-  onAccept: Option[() => _] = None,
-  onShow: Option[() => _] = None,
-  onDismiss: Option[() => _] = None,
-  onClickAway: Option[() => _] = None,
+  onAccept: Option[() => Unit] = None,
+  onShow: Option[() => Unit] = None,
+  onDismiss: Option[() => Unit] = None,
+  onClickAway: Option[() => Unit] = None,
 
   // react
   ref: Option[String] = None,
-  style: Option[js.Object] = None)
+  style: Option[js.Object] = None) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.DatePicker
+  val toJs = JS[DatePicker](this)
+}
 
 // Menus
 
 object Menu {
+
   trait Item {
     val toJs: js.Object
   }
+
   object Types extends Enumeration {
     val LINK = Value
     val SUBHEADER = Value
     val NESTED = Value
   }
+
 }
 
 //√
@@ -401,13 +447,15 @@ case class Menu(
   menuItemStyleLink: Option[js.Object] = None,
   selectedIndex: Int = 0,
 
-  onItemTap: Option[(SyntheticEvent[Node], Int, MenuItemM) => _] = None,
-  onToggle: Option[(SyntheticEvent[Node], Int, Boolean) => _] = None, // how do you know what item was toggled? event.target?
+  onItemTap: Option[(SyntheticEvent[Node], Int, MenuItemM) => Unit] = None,
+  onToggle: Option[(SyntheticEvent[Node], Int, Boolean) => Unit] = None, // how do you know what item was toggled? event.target?
 
   // react
   ref: Option[String] = None,
-  style: Option[js.Object] = None) extends Menu.Item {
-  val toJs: js.Object = JS[Menu](this)
+  style: Option[js.Object] = None) extends Props with Menu.Item {
+  private[muiwrapper] val _c = (c: Mui) => c.Menu
+  val toJs = JS[Menu](this)
+
 }
 
 trait MenuItemM extends js.Object {
@@ -433,14 +481,15 @@ case class MenuItem(
   iconRightClassName: Option[String] = None,
   iconRightStyle: Option[String] = None,
 
-  onTouchTap: Option[(SyntheticEvent[Node], Int, MenuItemM) => _] = None,
-  onToggle: Option[(SyntheticEvent[Node], Int, Boolean) => _] = None, // how do you know what item was toggled? event.target?
+  onTouchTap: Option[(SyntheticEvent[Node], Int, MenuItemM) => Unit] = None,
+  onToggle: Option[(SyntheticEvent[Node], Int, Boolean) => Unit] = None, // how do you know what item was toggled? event.target?
 
   // react
   disabled: Boolean = false,
   ref: Option[String] = None,
-  style: Option[js.Object] = None) extends Menu.Item {
-  lazy val toJs: js.Object = JS[MenuItem](this)
+  style: Option[js.Object] = None) extends Props with Menu.Item {
+  private[muiwrapper] val _c = (c: Mui) => c.MenuItem
+  val toJs = JS[MenuItem](this)
 }
 
 //√
@@ -457,14 +506,15 @@ case class LeftNav(
   selectedIndex: Option[Int] = None,
   openRight: Boolean = false,
 
-  onNavOpen: Option[(SyntheticEvent[Node], Int, js.Object /* MenuItems */ ) => _] = None,
+  onNavOpen: Option[(SyntheticEvent[Node], Int, js.Object /* MenuItems */ ) => Unit] = None,
   onNavClose: Option[js.Function0[Unit]] = None,
   onChange: Option[js.Function0[Unit]] = None,
 
   // react
   ref: Option[String] = None,
-  style: Option[js.Object] = None) {
-  lazy val toJs: js.Object = JS[LeftNav](this)
+  style: Option[js.Object] = None) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.LeftNav
+  val toJs = JS[LeftNav](this)
 }
 
 case class DropDownMenu(
@@ -473,11 +523,12 @@ case class DropDownMenu(
   autoWidth: Option[Boolean] = None,
   selectedIndex: Int = 0,
 
-  onChangeTap: Option[(SyntheticEvent[Node], Int, MenuItemM) => _] = None,
+  onChangeTap: Option[(SyntheticEvent[Node], Int, MenuItemM) => Unit] = None,
 
   ref: Option[String] = None,
-  style: Option[js.Object] = None) {
-  lazy val toJs: js.Object = JS[DropDownMenu](this)
+  style: Option[js.Object] = None) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.DropDownMenu
+  val toJs = JS[DropDownMenu](this)
 }
 
 // Other
@@ -497,16 +548,19 @@ case class Slider(
   description: Option[String] = None,
   dragging: Boolean = false,
 
-  onChange: Option[(SyntheticFocusEvent[Node], Double) => _] = None,
+  onChange: Option[(SyntheticFocusEvent[Node], Double) => Unit] = None,
 
   // react
   defaultValue: Double = 0,
   required: Boolean = true,
   disabled: Boolean = false,
-  onFocus: Option[SyntheticFocusEvent[Node] => _] = None,
-  onBlur: Option[SyntheticFocusEvent[Node] => _] = None,
+  onFocus: Option[SyntheticFocusEvent[Node] => Unit] = None,
+  onBlur: Option[SyntheticFocusEvent[Node] => Unit] = None,
   ref: Option[String] = None,
-  style: Option[js.Object] = None)
+  style: Option[js.Object] = None) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.Slider
+  val toJs = JS[Slider](this)
+}
 
 case class Tooltip(
   label: String,
@@ -516,37 +570,54 @@ case class Tooltip(
 
   // react
   ref: Option[String] = None,
-  style: Option[js.Object] = None)
+  style: Option[js.Object] = None) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.Tooltip
+  val toJs = JS[Tooltip](this)
+}
 
 case class Snackbar(
   message: String,
 
   action: Option[String] = None,
-  onActionTouchTap: Option[SyntheticTouchEvent[Node] => _] = None,
+  onActionTouchTap: Option[SyntheticTouchEvent[Node] => Unit] = None,
   openOnMount: Boolean = false,
 
   // react
   ref: Option[String] = None,
-  style: Option[js.Object] = None)
+  style: Option[js.Object] = None) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.Snackbar
+  val toJs = JS[Snackbar](this)
+}
 
-//case class AppBar(
-//  ref: Option[String] = None,
-//  iconClassNameRight: String,
-//  style: Option[js.Object] = None,
-//  onRightIconButtonTouchTap: SyntheticTouchEvent[Node] => _,
-//  iconClassNameLeft: String,
-//  onLeftIconButtonTouchTap: SyntheticTouchEvent[Node] => _,
-//  // iconElementRight: /*??? 'element*/,
-//  iconStyleRight: js.Object,
-//  // iconElementLeft: /*??? 'element*/,
-//  showMenuIconButton: Option[Boolean] = None,
-//  zDepth: Option[Int] = None
-//  // title: Option[/*??? 'node*/] = None
-//  )
+class AppCanvas extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.AppCanvas
+  val toJs = js.Object()
+}
+
+case class AppBar(
+  iconClassNameLeft: Option[String] = None,
+  iconClassNameRight: Option[String] = None,
+  iconStyleRight: Option[js.Object] = None,
+  iconElementRight: Option[ReactElement] = None,
+  iconElementLeft: Option[ReactElement] = None,
+  showMenuIconButton: Boolean = true,
+  title: Option[String] = None,
+  zDepth: Int = 1,
+
+  onLeftIconButtonTouchTap: Option[SyntheticTouchEvent[Node] => Unit] = None,
+  onRightIconButtonTouchTap: Option[SyntheticTouchEvent[Node] => Unit] = None,
+
+  // react
+  ref: Option[String] = None,
+  style: Option[js.Object] = None) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.AppBar
+  val toJs = JS[AppBar](this)
+}
+
 
 //
 //case class Tab(
-//  handleTouchTap: SyntheticTouchEvent[Node] => _,
+//  handleTouchTap: SyntheticTouchEvent[Node]=> Unit,
 //  style: Option[js.Object] = None,
 //  selected: Boolean,
 //  width: String,

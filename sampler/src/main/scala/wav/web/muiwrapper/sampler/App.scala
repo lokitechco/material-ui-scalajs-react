@@ -14,6 +14,8 @@ object App extends js.JSApp {
     if (name == "Sampler") nav else "content"
 
   def main(): Unit = {
+    startBuildService()
+
     val target = getElement[Div]("scala")
     target.innerHTML = s"""<div id="$nav"></div><div id="content"></div>"""
     val sampler = new Sampler(nav, "samples")
@@ -24,7 +26,6 @@ object App extends js.JSApp {
         sampler.mainRef.M(mainM)(_.close)
         true
       }
-    startBuildService()
   }
 
   def startBuildService(): Unit = {
