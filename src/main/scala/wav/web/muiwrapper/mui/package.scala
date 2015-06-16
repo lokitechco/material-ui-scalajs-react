@@ -3,10 +3,9 @@ package wav.web.muiwrapper
 import japgolly.scalajs.react._
 import scala.scalajs.js, js.{Function => JFn, Dynamic, Dictionary}
 
-
 package object mui {
 
-  implicit val muiUniverse = new MuiUniverse {}
+  implicit val muiUniverse = DefaultMuiUniverse
 
   implicit class defaultPropsToB(protected val props: Props)(implicit protected val muiUniverse: MuiUniverse) extends ComponentB
 

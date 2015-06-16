@@ -1,34 +1,44 @@
 package wav.web.muiwrapper.sampler
 
-import scala.scalajs.js.annotation.JSExport
-import scalajs.js
-import org.scalajs.dom, dom.html.Div
-import japgolly.scalajs.react._
+import scalajs.js, js.annotation.JSExport
+import org.scalajs.dom
+import japgolly.scalajs.react._, vdom.prefix_<^._
+import japgolly.scalajs.react.extra.router2._
 
 @JSExport("SamplerApp")
 object App extends js.JSApp {
 
-  private val nav = "nav"
+  sealed trait Page
+  case class Examples(eg: Example) extends Page
 
-  private def contentId(name: String): String =
-    if (name == "Sampler") nav else "content"
+  def layout(c: RouterCtl[Page], r: Resolution[Page]) =
+    <.div(^.cls := "container", r.render())
 
-  def main(): Unit = {
-    startBuildService()
+  val routerConfig = RouterConfigDsl[Page].buildConfig { dsl =>
+    import dsl._
 
-    val target = getElement[Div]("scala")
-    target.innerHTML = s"""<div id="$nav"></div><div id="content"></div>"""
-    val sampler = new Sampler(nav, "samples")
-    val main = sampler.Main.buildU
-    val mainM = React.render(main(), getElement(nav))
-    dom.onhashchange = (_: dom.Event) =>
-      sampler.router.render(contentId _) { route =>
-        sampler.mainRef.M(mainM)(_.close)
-        true
-      }
+    def default = redirectToPage(Examples(Example.Icons))(Redirect.Replace)
+
+    def exampleRoutes: Rule =
+      Example.routes.prefixPath("#").pmap[Page](Examples) { case Examples(e) => e }
+
+    (emptyRule
+      | staticRoute(root, Examples(Example.Icons)) ~> default
+      | exampleRoutes
+      )
+      .notFound(???)
+      .renderWith(layout)
   }
 
-  def startBuildService(): Unit = {
+  @JSExport
+  override def main(): Unit = {
+    startBuildService
+
+    val router = Router(BaseUrl.fromWindowOrigin_/, routerConfig.logToConsole)
+    router() render dom.document.body
+  }
+
+  def startBuildService: Unit = {
     import wav.devtools.sbt.httpserver.buildservice.BuildService
     def onBuildEvent(project: String, event: String): Unit =
       if (project == "mui-wrapper-sampler" && event == "compiled")
