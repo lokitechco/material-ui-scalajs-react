@@ -2,7 +2,7 @@
 
 It's a ScalaJS wrapper of [material-ui.com](http://material-ui.com) for use with [scalajs-react](https://github.com/japgolly/scalajs-react)
 
-[Demo Site](http://wav.github.io/material-ui-scalajs-react/classes/index.html)
+[Demo Site](http://wav.github.io/material-ui-scalajs-react/public/index.html)
 
 ## Status
 

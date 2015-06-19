@@ -14,6 +14,7 @@ object App extends js.JSApp {
   override def main(): Unit = {
     init
     val router = Router(BaseUrl(Browser.currentPage), routerConfig.logToConsole)
+
     router() render dom.document.body
   }
 

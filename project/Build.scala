@@ -10,7 +10,7 @@ object Mui extends Build {
   object v {
     val react  = "0.13.3"
     val sreact = "0.9.0"
-    val mui    = "0.9.0"
+    val mui    = "0.9.1"
   }
 
   val commonSettings = Seq(
@@ -83,6 +83,5 @@ object Mui extends Build {
         IO.copy(mappings, true)
         mappings.map(_._2)
       })
-
 
 }
