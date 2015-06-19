@@ -24,7 +24,7 @@ object App extends js.JSApp {
   val routerConfig = RouterConfigDsl[Page].buildConfig { dsl =>
     import dsl._
 
-    def default = redirectToPath("#sample/Icons")(Redirect.Replace)
+    def default = redirectToPath("#sample/GettingStarted")(Redirect.Replace)
 
     def exampleRoutes: Rule =
       Example.routes.prefixPath_/("#sample").pmap[Page](Examples) { case Examples(e) => e }

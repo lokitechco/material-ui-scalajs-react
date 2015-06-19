@@ -6,7 +6,7 @@ It's a ScalaJS wrapper of [material-ui.com](http://material-ui.com) for use with
 
 ## Status
 
-At this stage, this is an experiment (low priority).
+Alpha status. Wrappers are complete. [Some TODOs](TODO.md) before a release.
 
 #### Approach
 
@@ -21,11 +21,11 @@ Use wrappers.
 
 Reference this project in your build and use it's resources.
 
-Bootstraping the application: [material-ui-app.html](src/main/resources/material-ui-app.html) 
+Bootstrapping the application: [material-ui-app.html](src/main/resources/material-ui-app.html) 
 
-See the [example build](example) and the [sampler](sampler/src/main/scala/wav/web/muiwrapper/sampler/)
+See the [example project](example) and the [sampler](sampler/src/main/scala/wav/web/muiwrapper/sampler/)
 
-Open the sampler in the browser with `sbt sampler` or `sbt sampler http`.
+Open the sampler in the browser with `sbt sampler`.
 
 ## Caveats
 

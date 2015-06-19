@@ -16,14 +16,18 @@ sealed abstract class Example(val title: String,
 
 object Example {
 
-  case object Icons extends Example("Icons", "Icons", () => examples.Icons.content())
+  case object GettingStarted extends Example("Getting started", "GettingStarted", () => examples.GettingStarted.content())
+
+  case object IconsAndInputs extends Example("Icons and Inputs", "IconsAndInputs", () => examples.IconsAndInputs.content())
 
   case object Dialogs extends Example("Dialogs", "Dialogs", () => examples.Dialogs.content())
+
+  case object ListsAndMenus extends Example("Lists and Menus", "ListsAndMenus", () => examples.ListsAndMenus.content())
 
   implicit val equality   : Equal[Example]       = Equal.equalA
   implicit val reusability: Reusability[Example] = Reusability.byEqual
 
-  val values = Vector[Example](Icons, Dialogs)
+  val values = Vector[Example](GettingStarted, IconsAndInputs, Dialogs, ListsAndMenus)
 
   import ExamplesPage._
 
@@ -61,7 +65,8 @@ object ExamplesPage {
         title = "Components",
         iconElementLeft = <.div().render, // hide.
         iconElementRight = ?(IconButton(
-          className = "fa fa-github",
+          className = "fa",
+          iconLigature = "fa-github",
           href = "https://github.com/wav/material-ui-scalajs-react",
           linkButton = true))),
       <.div(^.paddingTop := (muiSpacing(_.desktopKeylineIncrement) + "px"),

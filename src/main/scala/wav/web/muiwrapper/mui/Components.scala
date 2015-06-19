@@ -3,9 +3,9 @@ package wav.web.muiwrapper.mui
 import wav.common.scalajs.macros.JS
 import japgolly.scalajs.react._
 import org.scalajs.dom.Node
-import wav.web.muiwrapper.{Mui, Props}
+import wav.web.muiwrapper.{Mui, Props, SimpleProps}
 
-import scala.scalajs.js, js.{UndefOr, Array, undefined, Object, native}
+import scala.scalajs.js, js.{Array, Dynamic, Object, UndefOr, undefined, native}
 
 case class Action(
   text: String,
@@ -15,12 +15,33 @@ case class Action(
   val toJs = JS[Action].apply(this)
 }
 
+case class Avatar(
+  className: UndefOr[String] = undefined,
+  src: UndefOr[String] = undefined,
+  //icon={<FileFolder />}
+  color: UndefOr[String] = undefined,
+  backgroundColor: UndefOr[String] = undefined,
+
+  // react
+  key: UndefOr[String] = undefined,
+  ref: UndefOr[String] = undefined,
+  style: UndefOr[Object] = undefined) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.Avatar
+  val toJs = JS[Avatar](this)
+}
+
+class ClearFix() extends SimpleProps {
+  private[muiwrapper] val _c = (c: Mui) => c.ClearFix
+  val toJs = new Object()
+}
+
 //√
 case class Paper(
   circle: Boolean = false,
   rounded: Boolean = true,
   transitionEnabled: Boolean = true,
   zDepth: Int = 1,
+  className: UndefOr[String] = undefined,
 
   // react
   key: UndefOr[String] = undefined,
@@ -29,6 +50,7 @@ case class Paper(
   private[muiwrapper] val _c = (c: Mui) => c.Paper
   val toJs = JS[Paper](this)
 }
+
 
 // Text
 
@@ -54,6 +76,9 @@ case class TextField(
   floatingLabelText: UndefOr[String] = undefined,
   multiLine: Boolean = false,
   rows: Int = 1,
+  fullWidth: UndefOr[Boolean] = undefined,
+  inputStyle: UndefOr[Object] = undefined,
+  floatingLabelStyle: UndefOr[Object] = undefined,
 
   onChange: UndefOr[SyntheticEvent[Node] => Unit] = undefined,
   onKeyDown: UndefOr[SyntheticKeyboardEvent[Node] => Unit] = undefined,
@@ -133,6 +158,7 @@ trait EnhancedButtonM extends TopNode {
 case class IconButton(
   className: UndefOr[String] = undefined,
   iconClassName: UndefOr[String] = undefined,
+  iconLigature: UndefOr[String] = undefined,
   iconStyle: UndefOr[Object] = undefined,
   linkButton: Boolean = false,
   mini: Boolean = true,
@@ -257,7 +283,7 @@ trait CheckboxM extends EnhancedSwitchM {
 }
 
 object HorizontalPosition extends Enumeration {
-  val left = Value
+  val left  = Value
   val right = Value
 }
 
@@ -267,6 +293,8 @@ case class Checkbox(
   labelPosition: HorizontalPosition.Value = HorizontalPosition.right,
   defaultChecked: Boolean = false,
   iconStyle: UndefOr[Object] = undefined,
+  checkedIcon: UndefOr[ReactElement] = undefined,
+  unCheckedIcon: UndefOr[ReactElement] = undefined,
 
   onCheck: UndefOr[EnhancedSwitch.OnChange] = undefined,
 
@@ -386,7 +414,7 @@ case class Dialog(
 object DatePicker {
 
   object Mode extends Enumeration {
-    val portrait = Value
+    val portrait  = Value
     val landscape = Value
   }
 
@@ -437,14 +465,8 @@ case class DatePicker(
 
 object Menu {
 
-  trait Item {
+  abstract class Item {
     val toJs: Object
-  }
-
-  object Types extends Enumeration {
-    val LINK = Value
-    val SUBHEADER = Value
-    val NESTED = Value
   }
 
 }
@@ -454,11 +476,10 @@ case class Menu(
   text: String,
   menuItems: Array[Menu.Item],
 
-  `type`: Menu.Types.Value = Menu.Types.LINK,
   autoWidth: Boolean = true,
-  hidable: Boolean = false,
-  visible: Boolean = false,
+  visible: Boolean = true,
   zDepth: Int = 1,
+  rounded: UndefOr[Boolean] = undefined,
 
   menuItemClassName: UndefOr[String] = undefined,
   menuItemClassNameSubheader: UndefOr[String] = undefined,
@@ -466,7 +487,7 @@ case class Menu(
   menuItemStyle: UndefOr[Object] = undefined,
   menuItemStyleSubheader: UndefOr[Object] = undefined,
   menuItemStyleLink: UndefOr[Object] = undefined,
-  selectedIndex: Int = 0,
+  selectedIndex: UndefOr[Int] = undefined,
 
   onItemTap: UndefOr[(SyntheticEvent[Node], Int, MenuItemM) => Unit] = undefined,
   onToggle: UndefOr[(SyntheticEvent[Node], Int, Boolean) => Unit] = undefined, // how do you know what item was toggled? event.target?
@@ -474,28 +495,27 @@ case class Menu(
   // react
   key: UndefOr[String] = undefined,
   ref: UndefOr[String] = undefined,
-  style: UndefOr[Object] = undefined) extends Props with Menu.Item {
+  style: UndefOr[Object] = undefined) extends Props {
   private[muiwrapper] val _c = (c: Mui) => c.Menu
   val toJs = JS[Menu](this)
 
 }
 
 trait MenuItemM extends Object {
-  val payload: String = native
+  val payload  : String          = native
   val attribute: UndefOr[String] = native
-  val data: UndefOr[String] = native
-  val number: UndefOr[Double] = native
+  val data     : UndefOr[String] = native
+  val number   : UndefOr[Double] = native
 }
 
 // √
 case class MenuItem(
   text: String,
-  payload: String,
+  payload: UndefOr[String] = undefined,
   attribute: UndefOr[String] = undefined,
   data: UndefOr[String] = undefined,
   number: UndefOr[Double] = undefined,
   toggle: Boolean = false,
-  `type`: UndefOr[Menu.Types.Value] = undefined,
 
   className: UndefOr[String] = undefined,
   iconClassName: UndefOr[String] = undefined,
@@ -510,9 +530,24 @@ case class MenuItem(
   disabled: Boolean = false,
   key: UndefOr[String] = undefined,
   ref: UndefOr[String] = undefined,
-  style: UndefOr[Object] = undefined) extends Props with Menu.Item {
-  private[muiwrapper] val _c = (c: Mui) => c.MenuItem
+  style: UndefOr[Object] = undefined) extends Menu.Item with Props {
+  private[muiwrapper] val _c = (c: Mui) => c.Menu
   val toJs = JS[MenuItem](this)
+}
+
+case class NestedMenuItem(
+  text: String,
+  items: Array[Menu.Item],
+  menuItemStyle: UndefOr[Object] = undefined,
+  key: UndefOr[String] = undefined,
+  ref: UndefOr[String] = undefined,
+  style: UndefOr[Object] = undefined) extends Menu.Item with Props {
+  private[muiwrapper] val _c = (c: Mui) => c.Menu
+  val toJs: Object = {
+    val o = JS[NestedMenuItem](this).asInstanceOf[Dynamic with Object]
+    o.updateDynamic("type")("NESTED")
+    o
+  }
 }
 
 //√
@@ -563,7 +598,7 @@ case class DropDownMenu(
 
 // from Draggable
 trait Position extends Object {
-  val top: Int = native
+  val top : Int = native
   val left: Int = native
 }
 
@@ -649,74 +684,153 @@ case class AppBar(
   val toJs = JS[AppBar](this)
 }
 
+case class Tab(
+  selected: UndefOr[Boolean],
+  handleTouchTap: UndefOr[SyntheticTouchEvent[Node] => Unit] = undefined,
+  width: UndefOr[String],
 
-//
-//case class Tab(
-//  handleTouchTap: SyntheticTouchEvent[Node]=> Unit,
-//  style: UndefOr[Object] = undefined,
-//  selected: Boolean,
-//  width: String,
-//  key: UndefOr[String] = undefined,
-//  ref: UndefOr[String] = undefined)
+  // react
+  style: UndefOr[Object] = undefined,
+  key: UndefOr[String] = undefined,
+  ref: UndefOr[String] = undefined) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.Tab
+  val toJs = JS[Tab](this)
+}
 
-//case class Tabs(
-//  key: UndefOr[String] = undefined,
-//  ref: UndefOr[String] = undefined,
-//  tabWidth: Int,
-//  style: UndefOr[Object] = undefined,
-//  initialSelectedIndex: Int
-//  // onActive: js.Function[???, Unit] /*???*/
-//  )
+case class Tabs(initialSelectedIndex: Int,
+  tabWidth: UndefOr[Int] = undefined,
+  onActive: UndefOr[Object => Unit] = undefined,
 
-//case class ToolbarTitle(
-//  key: UndefOr[String] = undefined,
-//  ref: UndefOr[String] = undefined,
-//  text: String,
-//  style: UndefOr[Object] = undefined)
-//
-//case class Toolbar(
-//  key: UndefOr[String] = undefined,
-//  ref: UndefOr[String] = undefined,
-//  className: String,
-//  style: UndefOr[Object] = undefined)
+  // react
+  style: UndefOr[Object] = undefined,
+  key: UndefOr[String] = undefined,
+  ref: UndefOr[String] = undefined) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.Tabs
+  val toJs = JS[Tabs](this)
+}
 
-//
-//case class ToolbarGroup(
-//  className: String,
-//  style: UndefOr[Object] = undefined,
-//  key: UndefOr[String] = undefined,
-//  ref: UndefOr[String] = undefined,
-//  float: UndefOr[String] = undefined)
-//
-//
-//case class ToolbarSeparator(
-//  key: UndefOr[String] = undefined,
-//  ref: UndefOr[String] = undefined,
-//  style: UndefOr[Object] = undefined)
-//
-//case class BeforeAfterWrapper(
-//  key: UndefOr[String] = undefined,
-//  ref: UndefOr[String] = undefined,
-//  style: UndefOr[Object] = undefined,
-//  afterStyle: Object,
-//  beforeStyle: Object,
-//  afterElementType: UndefOr[String] = undefined,
-//  elementType: UndefOr[String] = undefined,
-//  beforeElementType: UndefOr[String] = undefined)
-//
-//case class LinearProgress(
-//  key: UndefOr[String] = undefined,
-//  ref: UndefOr[String] = undefined,
-//  style: UndefOr[Object] = undefined,
-//  max: UndefOr[Int] = undefined,
-//  min: UndefOr[Int] = undefined,
-//  value: UndefOr[Int] = undefined)
+case class ToolbarTitle(
+  text: String,
 
-//case class CircularProgress(
-//  key: UndefOr[String] = undefined,
-//  ref: UndefOr[String] = undefined,
-//  style: UndefOr[Object] = undefined,
-//  size: UndefOr[Int] = undefined,
-//  min: UndefOr[Int] = undefined,
-//  value: UndefOr[Int] = undefined,
-//  max: UndefOr[Int] = undefined)
+  // react
+  style: UndefOr[Object] = undefined,
+  key: UndefOr[String] = undefined,
+  ref: UndefOr[String] = undefined) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.ToolbarTitle
+  val toJs = JS[ToolbarTitle](this)
+}
+
+case class Toolbar(
+  className: String,
+
+  // react
+  style: UndefOr[Object] = undefined,
+  key: UndefOr[String] = undefined,
+  ref: UndefOr[String] = undefined) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.Toolbar
+  val toJs = JS[Toolbar](this)
+}
+
+case class ToolbarGroup(
+  className: String,
+  float: UndefOr[String] = undefined,
+
+  // react
+  style: UndefOr[Object] = undefined,
+  key: UndefOr[String] = undefined,
+  ref: UndefOr[String] = undefined) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.ToolbarGroup
+  val toJs = JS[ToolbarGroup](this)
+}
+
+case class ToolbarSeparator(
+  style: UndefOr[Object] = undefined) extends SimpleProps {
+  private[muiwrapper] val _c = (c: Mui) => c.ToolbarSeparator
+  val toJs = JS[ToolbarSeparator](this)
+}
+
+case class BeforeAfterWrapper(
+  afterStyle: UndefOr[Object] = undefined,
+  beforeStyle: UndefOr[Object] = undefined,
+  afterElementType: UndefOr[String] = undefined,
+  elementType: UndefOr[String] = undefined,
+  beforeElementType: UndefOr[String] = undefined,
+
+  // react
+  style: UndefOr[Object] = undefined,
+  key: UndefOr[String] = undefined,
+  ref: UndefOr[String] = undefined) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.BeforeAfterWrapper
+  val toJs = JS[BeforeAfterWrapper](this)
+}
+
+case class LinearProgress(
+  max: UndefOr[Int] = undefined,
+  min: UndefOr[Int] = undefined,
+  value: UndefOr[Int] = undefined,
+
+  // react
+  style: UndefOr[Object] = undefined,
+  key: UndefOr[String] = undefined,
+  ref: UndefOr[String] = undefined) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.LinearProgress
+  val toJs = JS[LinearProgress](this)
+}
+
+case class CircularProgress(
+  max: UndefOr[Int] = undefined,
+  min: UndefOr[Int] = undefined,
+  value: UndefOr[Int] = undefined,
+
+  // react
+  style: UndefOr[Object] = undefined,
+  key: UndefOr[String] = undefined,
+  ref: UndefOr[String] = undefined) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.CircularProgress
+  val toJs = JS[CircularProgress](this)
+}
+
+case class List(
+  insetSubheader: UndefOr[Boolean] = undefined,
+  subheader: UndefOr[String] = undefined,
+  // subheader: UndefOr[ReactElement] = undefined,
+  subheaderStyle: UndefOr[Object] = undefined,
+
+  // react
+  style: UndefOr[Object] = undefined,
+  key: UndefOr[String] = undefined,
+  ref: UndefOr[String] = undefined) extends Props {
+  private[muiwrapper] val _c = (c: Mui) => c.List
+  val toJs = JS[List](this)
+}
+
+case class ListDivider(
+  inset: UndefOr[Boolean] = undefined,
+  style: UndefOr[Object] = undefined) extends SimpleProps {
+  private[muiwrapper] val _c = (c: Mui) => c.ListDivider
+  val toJs = JS[ListDivider](this)
+}
+
+case class ListItem(
+  disableTouchTap: UndefOr[Boolean] = undefined,
+  insetChildren: UndefOr[Boolean] = undefined,
+  leftAvatar: UndefOr[ReactElement] = undefined,
+  leftCheckbox: UndefOr[ReactElement] = undefined,
+  leftIcon: UndefOr[ReactElement] = undefined,
+  rightAvatar: UndefOr[ReactElement] = undefined,
+  rightToggle: UndefOr[ReactElement] = undefined,
+  rightIcon: UndefOr[ReactElement] = undefined,
+  secondaryText: UndefOr[ReactElement] = undefined,
+  secondaryTextLines: Int = 1,
+
+  onMouseOut: UndefOr[SyntheticMouseEvent[Node] => Unit] = undefined,
+  onMouseOver: UndefOr[SyntheticMouseEvent[Node] => Unit] = undefined,
+
+  // react
+  style: UndefOr[Object] = undefined,
+  key: UndefOr[String] = undefined,
+  ref: UndefOr[String] = undefined) extends Props {
+  require(secondaryTextLines == 1 || secondaryTextLines == 2)
+  private[muiwrapper] val _c = (c: Mui) => c.ListItem
+  val toJs = JS[ListItem](this)
+}

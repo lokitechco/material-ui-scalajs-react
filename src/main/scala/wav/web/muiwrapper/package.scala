@@ -31,6 +31,11 @@ package object muiwrapper {
     @inline def toJs: js.Object
   }
 
+  trait SimpleProps extends Props {
+    val key: UndefOr[String] = undefined
+    val ref: UndefOr[String] = undefined
+  }
+
   trait MuiUniverse {
 
     def install(): Unit = {

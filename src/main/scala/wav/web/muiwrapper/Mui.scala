@@ -5,6 +5,7 @@ import scala.scalajs.js.{Object, Dynamic, native}
 trait Mui extends Object {
   val AppBar: ReactComponent = native
   val AppCanvas: ReactComponent = native
+  val Avatar: ReactComponent = native
   val Checkbox: ReactComponent = native
   val CircularProgress: ReactComponent = native
   val ClearFix: ReactComponent = native
@@ -20,8 +21,10 @@ trait Mui extends Object {
   val IconButton: ReactComponent = native
   val LeftNav: ReactComponent = native
   val LinearProgress: ReactComponent = native
+  val List: ReactComponent = native
+  val ListDivider: ReactComponent = native
+  val ListItem: ReactComponent = native
   val Menu: ReactComponent = native
-  val MenuItem: ReactComponent = native
   val Mixins: ReactComponent = native
   val Paper: ReactComponent = native
   val RadioButton: ReactComponent = native

@@ -30,12 +30,10 @@ else
   echo "Usage: make-site.sh full|fast|skip" 1>&2 && exit 1
 fi
 
-if [ ! -d site ]; then
-  mkdir site
-fi
+rm -Rf site
+mkdir site
 
 links=""
-
 for res in ${resources[@]}; do
   name=`basename $res`
   cp "$targetDir/$res" "site/`basename $name`" || exit 1
@@ -53,6 +51,9 @@ cat<<HTML>site/index.html
 <head>
     <meta charset="UTF-8">
     <title>Material UI - ScalaJS sampler</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/languages/scala.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 $links

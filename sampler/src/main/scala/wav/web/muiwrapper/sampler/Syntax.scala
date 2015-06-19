@@ -7,9 +7,9 @@ import org.scalajs.dom._
 object Syntax {
 
   object log {
-    @inline def info(args: js.Any*) = g.console.log.bind(undefined.asInstanceOf[js.Any], args.toJsArray)
-    @inline def debug(args: js.Any*) = g.console.debug.bind(undefined.asInstanceOf[js.Any], args.toJsArray)
-    @inline def warn(args: js.Any*) = g.console.warn.bind(undefined.asInstanceOf[js.Any], args.toJsArray)
+    @inline def info(args: js.Any*) = g.console.log(args.toJsArray)
+    @inline def debug(args: js.Any*) = g.console.debug(args.toJsArray)
+    @inline def warn(args: js.Any*) = g.console.warn(args.toJsArray)
   }
 
   val RB = ReactComponentB

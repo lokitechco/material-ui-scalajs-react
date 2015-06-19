@@ -9,7 +9,7 @@ package object mui {
 
   implicit class defaultPropsToB(protected val props: Props)(implicit protected val muiUniverse: MuiUniverse) extends ComponentB
 
-  implicit def defaultPropsToE(props: Props)(implicit muiUniverse: MuiUniverse): ReactComponentU_ = props()
+  implicit def defaultPropsToC_(props: Props)(implicit muiUniverse: MuiUniverse): ReactComponentU_ = props()
 
   @inline implicit def builderToComponent(b: ComponentB): ReactComponentU_ = b.apply()
 
