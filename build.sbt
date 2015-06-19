@@ -27,9 +27,9 @@ def browseProject(project: Project, config: Configuration) =
     (fastOptJS in config in project).value
     val target = args match {
       case Seq("http") =>
-        HttpServerKeys.httpServerAddress.value + s"/${project.id}/${config.name}/index-sbt.html#"
+        HttpServerKeys.httpServerAddress.value + s"/${project.id}/${config.name}/index-sbt.html"
       case _ =>
-        val f = (classDirectory in config in project).value / "index-filesystem.html#"
+        val f = (classDirectory in config in project).value / "index.html"
         "file://" + f.getCanonicalPath
     }
     streams.value.log(s"opening $target")

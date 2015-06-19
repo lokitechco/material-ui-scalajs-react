@@ -7,7 +7,11 @@ import wav.web.muiwrapper.{Mui, Props}
 
 import scala.scalajs.js, js.{UndefOr, Array, undefined, Object, native}
 
-case class Action(text: String, onClick: () => Unit) {
+case class Action(
+  text: String,
+  onClick: () => Unit,
+  ref: UndefOr[String] = undefined // if the actionFocus == ref, then the action will be highlighted.
+  ) {
   val toJs = JS[Action].apply(this)
 }
 

@@ -16,6 +16,21 @@ object Dialogs {
         label = "Open Dialog",
         onTouchTap = ?(_ => dialogRef.M(b)(_.show))),
       Dialog(
+        actionFocus = "Ok",
+        actions = js.Array(
+          Action(
+            text = "Ok",
+            onClick = () => {
+              dialogRef.M(b)(_.dismiss)
+              log.debug("OK")
+            },
+            ref = "Ok"),
+          Action(
+            text = "Cancel",
+            onClick = () => {
+              dialogRef.M(b)(_.dismiss)
+              log.debug("Cancel")
+            })),
         ref = dialogRef.name,
         onShow = ?(() => log.debug("Opened")),
         onDismiss = ?(() => log.debug("Closed")))
