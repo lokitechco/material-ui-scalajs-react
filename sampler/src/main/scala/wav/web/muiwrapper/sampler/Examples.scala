@@ -49,8 +49,10 @@ object ExamplesPage {
 
   // This is: https://github.com/callemall/material-ui/blob/master/docs/src/app/components/pages/page-with-nav.jsx
   val components = dynamicB[Props]("Components") { p =>
-    val items: js.Array[Menu.Item] = Example.values.map { eg =>
+    val items: js.Array[Menu.Item] = Example.values.zipWithIndex.map { e =>
+      val (eg, i) = e
       (MenuItem(
+        key = i.toString,
         text = eg.title,
         payload = p.router.urlFor(eg).value): Menu.Item)
     }.toJsArray
@@ -59,7 +61,7 @@ object ExamplesPage {
         title = "Components",
         iconElementLeft = <.div().render, // hide.
         iconElementRight = ?(IconButton(
-          iconClassName = "fa fa-github",
+          className = "fa fa-github",
           href = "https://github.com/wav/material-ui-scalajs-react",
           linkButton = true))),
       <.div(^.paddingTop := (muiSpacing(_.desktopKeylineIncrement) + "px"),
