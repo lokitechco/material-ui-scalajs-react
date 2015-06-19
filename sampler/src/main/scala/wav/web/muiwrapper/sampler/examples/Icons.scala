@@ -1,12 +1,10 @@
 package wav.web.muiwrapper.sampler.examples
 
 import wav.web.muiwrapper.mui._
-import japgolly.scalajs.react._
+import wav.web.muiwrapper.sampler.Syntax._
 
 object Icons {
 
-  def content = ReactComponentB[Unit]("Icons example")
-    .render(_ => FontIcon("material-icons")("check"))
-    .buildU
+  def content = RB.static("Icons", FontIcon("material-icons")("check")).buildU
 
 }

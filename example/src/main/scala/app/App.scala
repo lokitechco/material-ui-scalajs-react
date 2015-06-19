@@ -16,6 +16,7 @@ object App extends js.JSApp {
     .buildU
 
   def main(): Unit = {
+    muiUniverse.install
     val target = dom.document.getElementById("app").asInstanceOf[html.Div]
     React.render(App(), target)
   }

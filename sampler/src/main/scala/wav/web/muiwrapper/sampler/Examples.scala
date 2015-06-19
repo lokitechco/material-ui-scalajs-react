@@ -1,21 +1,23 @@
 package wav.web.muiwrapper.sampler
 
-import scalaz.Equal
-import scalaz.syntax.equal._
-import japgolly.scalajs.react._, vdom.prefix_<^._
-import japgolly.scalajs.react.extra._
-import japgolly.scalajs.react.extra.router2.{RouterConfigDsl, RouterCtl}
+import japgolly.scalajs.react._
+import vdom.prefix_<^._
+import extra._
+import router2._
 import wav.web.muiwrapper.mui._
-
-import scala.scalajs.js
+import scala.scalajs.js, js.UndefOr._, js.Dynamic.{global => g}
+import scalaz.Equal
+import org.scalajs.dom
+import Syntax._
 
 sealed abstract class Example(val title: String,
-  val routerPath: String,
-  val render: () => ReactElement)
+                              val routerPath: String,
+                              val render: () => ReactElement)
 
 object Example {
 
   case object Icons extends Example("Icons", "Icons", () => examples.Icons.content())
+
   case object Dialogs extends Example("Dialogs", "Dialogs", () => examples.Dialogs.content())
 
   implicit val equality   : Equal[Example]       = Equal.equalA
@@ -23,14 +25,12 @@ object Example {
 
   val values = Vector[Example](Icons, Dialogs)
 
-  def default: Example =
-    values.head
+  import ExamplesPage._
 
   def routes = RouterConfigDsl[Example].buildRule { dsl =>
     import dsl._
-    import ExamplesPage._
-    values.map(e =>
-      staticRoute(e.routerPath, e) ~> renderR(r => component(Props(e, r)))
+    values.map(eg =>
+      staticRoute(eg.routerPath, eg) ~> renderR(ctl => components(Props(ctl, eg)))
     ).reduce(_ | _)
   }
 
@@ -38,50 +38,45 @@ object Example {
 
 object ExamplesPage {
 
-  case class Props(current: Example, router: RouterCtl[Example])
+  private def muiSpacing(get: js.Dynamic => js.Dynamic): String =
+    get(muiUniverse.mui.Styles.Spacing).toString
+
+  case class Props(router: RouterCtl[Example], current: Example)
 
   implicit val propsReuse = Reusability.caseclass2(Props.unapply)
 
-  class Backend($: BackendScope[Props, Unit]) {
-    def foreach(run: BackendScope[Props, Unit] => Unit) = run($)
-  }
+  private val names = Example.values.map(_.title)
 
-  val menuRef = Ref[LeftNavM]("Example menu")
-
-  val menu = ReactComponentB[Props]("Example menu")
-    .render { p =>
-    LeftNav(
-      ref = Some(menuRef.name),
-      openRight = true,
-      menuItems = Example.values.map { eg =>
-        MenuItem(
-          text = eg.title,
-          payload = p.router.urlFor(eg).value)
-      }.toArray)()
+  // This is: https://github.com/callemall/material-ui/blob/master/docs/src/app/components/pages/page-with-nav.jsx
+  val components = dynamicB[Props]("Components") { p =>
+    val items: js.Array[Menu.Item] = Example.values.map { eg =>
+      (MenuItem(
+        text = eg.title,
+        payload = p.router.urlFor(eg).value): Menu.Item)
+    }.toJsArray
+    AppCanvas()(
+      AppBar(
+        title = "Components",
+        iconElementLeft = <.div().render, // hide.
+        iconElementRight = ?(IconButton(
+          iconClassName = "fa fa-github",
+          href = "https://github.com/wav/material-ui-scalajs-react",
+          linkButton = true))),
+      <.div(^.paddingTop := (muiSpacing(_.desktopKeylineIncrement) + "px"),
+        Menu(
+          selectedIndex = names.indexOf(p.current.title),
+          onItemTap = ?((_, _, item) => dom.location.href = item.payload),
+          style = js.Dictionary[String]("float" -> "left"),
+          text = "",
+          menuItems = items),
+        <.div(
+          ^.float.left,
+          ^.padding := muiSpacing(_.desktopGutter) + "px",
+          p.current.render())))
   }
     .hackSpec(installMuiContext)
     .configure(Reusability.shouldComponentUpdate)
+    .propsRequired
     .build
-
-//  <.div(
-//    "style".reactAttr := js.Dictionary(
-//      "float" -> "right",
-//      "top" -> "0px",
-//      "right" -> "0px",
-//      "padding" -> "8px").asInstanceOf[js.Object],
-//    IconButton(onTouchTap = handler(_ => menuRef.M(B)(_.toggle)))("menu")())
-//    .build
-
-  val component = ReactComponentB[Props]("Examples")
-    .stateless
-    .backend(new Backend(_))
-    .render { (p, _, b) =>
-    <.div(
-      AppBar(
-        title = Some("Components"),
-        onLeftIconButtonTouchTap = Some(_ => menuRef.M(b)(_.toggle)))(),
-      menu(p),
-      p.current.render())
-  }.build
 
 }

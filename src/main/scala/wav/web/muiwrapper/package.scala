@@ -1,8 +1,7 @@
 package wav.web
 
 import japgolly.scalajs.react.{ReactNode, ReactComponentU_}
-import scala.scalajs.js, js.{Dynamic, undefined}, js.Dynamic.{global => g}
-import org.scalajs.dom
+import scala.scalajs.js, js.{Dynamic, Object, UndefOr, undefined}, Dynamic.{global => g}
 
 package object muiwrapper {
 
@@ -12,42 +11,54 @@ package object muiwrapper {
     protected val muiUniverse: MuiUniverse
     protected val props      : Props
 
-    @inline def apply(children: ReactNode*): ReactComponentU_ =
-      muiUniverse.React.createElement(props._c(muiUniverse.mui), props.toJs, children.toJsArray)
-        .asInstanceOf[ReactComponentU_]
+    private val allProps: js.Object = {
+      val o = props.toJs.asInstanceOf[Dynamic with Object]
+      props.ref.foreach(o.updateDynamic("ref")(_))
+      props.key.foreach(o.updateDynamic("key")(_))
+      o
+    }
 
-    @inline def apply(update: js.Object => js.Object, children: ReactNode*): ReactComponentU_ =
-      muiUniverse.React.createElement(props._c(muiUniverse.mui), update(props.toJs), children.toJsArray)
+    @inline def apply(children: ReactNode*): ReactComponentU_ =
+      muiUniverse.React.createElement(props._c(muiUniverse.mui), allProps, children.toJsArray)
         .asInstanceOf[ReactComponentU_]
   }
 
   trait Props {
     private[muiwrapper] val _c: Mui => ReactComponent
+    val key: UndefOr[String]
+    val ref: UndefOr[String]
 
     @inline def toJs: js.Object
   }
 
   trait MuiUniverse {
-    val React: js.Dynamic = g.React
-    val mui  : Mui        = g.mui.asInstanceOf[Mui]
+
+    def install(): Unit = {
+      requireDef(React, "React must available")
+      requireDef(mui, "mui must be available")
+    }
+
+    lazy                     val React: Dynamic  = g.React
+    lazy                     val mui  : Mui      = g.mui.asInstanceOf[Mui]
     private[muiwrapper] lazy val muiThemeManager = mui.Styles.ThemeManager()
   }
 
   // Installs the bundled react to the window so that scalajs-react can use it.
   object DefaultMuiUniverse extends MuiUniverse {
-    override val React = {
-      if (g.React.asInstanceOf[js.UndefOr[js.Function]] != undefined) g.React
+    override lazy val React =
+      if (g.React.asInstanceOf[UndefOr[js.Function]] != undefined) g.React
       else {
         val r = g.require("react/addons")
         g.window.React = r
         r
       }
-    }
-    override val mui   = {
+    override lazy val mui   = {
       val mui = g.require("material-ui")
       val injectTapPlugin = g.require("react-tap-event-plugin")()
       mui.asInstanceOf[Mui]
     }
   }
+
+  private[muiwrapper] def requireDef(v: js.Any, message: => String) = require(v.asInstanceOf[js.UndefOr[js.Any]] != undefined)
 
 }
