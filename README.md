@@ -29,6 +29,4 @@ Open the sampler in the browser with `sbt sampler`.
 
 ## Caveats
 
-- `scalajs-react` currently doesn't have a way to define a react context. A fork is used as a hack.
-
 - The react bundle (prepared with browserify) in this project must be used.

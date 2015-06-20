@@ -17,7 +17,7 @@ object GettingStarted {
                          | ReactComponentB[Unit]("TopLevelComponentWithMui")
                          |   .stateless
                          |   .noBackend
-                         |   .hackSpec(installMuiContext)
+                         |   .configureSpec(installMuiContext)
                          |   .buildU
                          |
                        """.stripMargin

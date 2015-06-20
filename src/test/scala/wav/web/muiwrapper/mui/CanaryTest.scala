@@ -8,6 +8,8 @@ import scalajs.js.RegExp
 
 object CanaryTest extends TestSuite {
 
+  muiUniverse.install
+
   val toHtml = React.renderToStaticMarkup _
 
   def assertRender(expected: RegExp, actual: String) = assert(expected.test(actual))
@@ -17,7 +19,7 @@ object CanaryTest extends TestSuite {
     'componentCanBeRendered {
        val icon = ReactComponentB[Unit]("Icons example")
         .render(_ => FontIcon("material-icons")("check"))
-        .hackSpec(installMuiContext)
+        .configureSpec(installMuiContext)
         .buildU
 
       assertRender(new RegExp("^<span .*>check</span>$"), toHtml(icon()))

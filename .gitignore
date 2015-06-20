@@ -4,4 +4,5 @@ user.sbt
 npm-debug.log
 Components.scala.gen
 package.json
+*.logsite
 *.log

@@ -9,7 +9,7 @@ object Mui extends Build {
 
   object v {
     val react  = "0.13.3"
-    val sreact = "0.9.0"
+    val sreact = "0.9.1"
     val mui    = "0.9.1"
   }
 
@@ -50,7 +50,6 @@ object Mui extends Build {
 
   lazy val `mui-wrapper` = (project in file("."))
     .enablePlugins(ScalaJSPlugin)
-    .dependsOn(`scalajs-react`)
     .settings((commonSettings ++ testSettings): _*)
     .settings(
       resourceGenerators in Compile <+= muiSources,
@@ -58,13 +57,9 @@ object Mui extends Build {
         ProvidedJS / "react-bundle.js" commonJSName "React",
         ProvidedJS / "material-ui.js" commonJSName "mui" dependsOn "react-bundle.js"),
       libraryDependencies ++= Seq(
-        "wav.common" %% "scala-macros" % "0.1.1"
-        //  "com.github.japgolly.scalajs-react" %%% "core" % sreactV
+        "wav.common" %% "scala-macros" % "0.1.1",
+        "com.github.japgolly.scalajs-react" %%% "core" % v.sreact
       ))
-
-  // Caveat: must use modified version that allows a context to be set.
-  // lazy val `scalajs-react` = ProjectRef(file("vendor/scalajs-react"), "core")
-  lazy val `scalajs-react` = ProjectRef(uri("https://github.com/wav/scalajs-react.git#context-hack"), "core")
 
   lazy val `mui-wrapper-sampler` = project.in(file("sampler"))
     .enablePlugins(ScalaJSPlugin)

@@ -81,7 +81,7 @@ object ExamplesPage {
           ^.padding := muiSpacing(_.desktopGutter) + "px",
           p.current.render())))
   }
-    .hackSpec(installMuiContext)
+    .configureSpec(installMuiContext)
     .configure(Reusability.shouldComponentUpdate)
     .propsRequired
     .build

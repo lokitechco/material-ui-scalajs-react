@@ -12,11 +12,11 @@ object App extends js.JSApp {
     .noBackend
     .render(_ => FontIcon("material-icons")("menu"))
     // mui requires context properties to be set, this is done on top-level components.
-    .hackSpec(installMuiContext)
+    .configureSpec(installMuiContext)
     .buildU
 
   def main(): Unit = {
-    muiUniverse.install
+    muiUniverse.install // required, or else: `Failure('TypeError: 'undefined' is not an object (evaluating '$g["React"]["createFactory"]')'`
     React.render(App(), dom.document.body)
   }
 
